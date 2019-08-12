@@ -16,6 +16,31 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>windows-settings</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <yacc.executable>yacc.exe</yacc.executable>
+            </properties>
+        </profile>
+        <profile>
+            <id>unix-settings</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                </os>
+            </activation>
+            <properties>
+                <yacc.executable>yacc</yacc.executable>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -69,7 +94,7 @@
                         </goals>
                         <configuration>
                             <workingDirectory>src/main/java/ru/amalnev/solarium/language</workingDirectory>
-                            <executable>${project.basedir}/byacc/yacc</executable>
+                            <executable>${project.basedir}/byacc/${yacc.executable}</executable>
                             <arguments>
                                 <argument>-Jpackage=ru.amalnev.solarium.language</argument>
                                 <argument>-Jthrows=ParserException,IOException</argument>
