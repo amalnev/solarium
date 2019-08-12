@@ -32,11 +32,22 @@
             <id>unix-settings</id>
             <activation>
                 <os>
-                    <family>Linux</family>
+                    <family>unix</family>
                 </os>
             </activation>
             <properties>
                 <yacc.executable>yacc</yacc.executable>
+            </properties>
+        </profile>
+        <profile>
+            <id>macos-settings</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <yacc.executable>yacc.macosx</yacc.executable>
             </properties>
         </profile>
     </profiles>
