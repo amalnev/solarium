@@ -1,0 +1,3 @@
+/*Test assignments*/
+a = 10;
+return a;

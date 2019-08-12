@@ -1,0 +1,9 @@
+/*Calling functions using object notation*/
+
+function f(arg)
+{
+    return 10 * arg;
+};
+
+a = 10;
+return a.f();

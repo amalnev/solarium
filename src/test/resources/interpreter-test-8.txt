@@ -1,0 +1,17 @@
+/*Test iteration over collection*/
+
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+result = 0;
+for(element: a)
+{
+    if(element < 5)
+    {
+        result = result + element;
+    }
+    else
+    {
+        break;
+    };
+};
+
+return result;

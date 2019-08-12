@@ -1,0 +1,4 @@
+/*Array dereference*/
+
+a = [10, 20, 30, 40];
+return a[0] + a[1] + a[2] + a[3];

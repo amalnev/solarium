@@ -1,0 +1,4 @@
+/*Arrays assignment and dereference*/
+
+a = [10, 20, 449, 6];
+return a[0] + a[3];

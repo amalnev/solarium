@@ -1,0 +1,10 @@
+/* Tests function definitions and function calling */
+
+/*Define a function with 2 arguments*/
+function test_function(a, b)
+{
+    return a + b;
+};
+
+/*Call previously defined function and return result*/
+return test_function(3, 2);

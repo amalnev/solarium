@@ -1,0 +1,4 @@
+/*Test boolean arithmetic*/
+
+a = true; b = false; c = true;
+return a | c & a | b;
