@@ -14,7 +14,7 @@ public abstract class LiteralExpression<T> implements IExpression
 
     public String toString()
     {
-        return value.toString();
+        return value != null ? value.toString() : "null";
     }
 
     @Override

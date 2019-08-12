@@ -1,6 +1,7 @@
 package ru.amalnev.solarium.library;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.SearchContext;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
 
@@ -14,7 +15,15 @@ public abstract class FindElement extends AbstractNativeFunction
 
         final SearchContext parentContext = context.getLocalVariableValue(parentArg, SearchContext.class);
         final String searchTerm = context.getLocalVariableValue(searchTermArg, String.class);
-        setReturnValue(context, parentContext.findElement(getBy(searchTerm)));
+
+        try
+        {
+            setReturnValue(context, parentContext.findElement(getBy(searchTerm)));
+        }
+        catch (NoSuchElementException e)
+        {
+            setReturnValue(context, null);
+        }
     }
 
     protected abstract By getBy(String searchTerm);

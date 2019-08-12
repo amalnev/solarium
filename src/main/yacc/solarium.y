@@ -31,6 +31,7 @@ import ru.amalnev.solarium.language.statements.*;
 %token BREAK_KEYWORD
 %token PLUS MINUS MUL DIV
 %token DOT
+%token NULL_KEYWORD
 
 %left GT LT DBLEQ
 %left PLUS MINUS
@@ -285,6 +286,9 @@ literal: NUMERIC_LITERAL {
  }
  | array_literal {
 	$$ = $1;
+ }
+ | NULL_KEYWORD {
+ 	$$ = new ParserVal(new NullLiteral());
  }
  ;
 

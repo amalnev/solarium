@@ -1,0 +1,4 @@
+/*Null handling*/
+
+a = null;
+return a;

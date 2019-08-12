@@ -20,6 +20,7 @@ public class Lexer
         put("for", Parser.FOR_KEYWORD);
         put("return", Parser.RETURN_KEYWORD);
         put("break", Parser.BREAK_KEYWORD);
+        put("null", Parser.NULL_KEYWORD);
     }};
 
     private static final Map<Integer, Short> delimiterMappings = new HashMap<Integer, Short>()
