@@ -25,6 +25,7 @@ public class Lexer
 
     private static final Map<Integer, Short> delimiterMappings = new HashMap<Integer, Short>()
     {{
+        put(33, Parser.NOT);
         put(38, Parser.AND);
         put(42, Parser.MUL);
         put(43, Parser.PLUS);

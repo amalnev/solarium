@@ -1,0 +1,4 @@
+/*More boolean arithmetic*/
+
+a = true;
+return !a;

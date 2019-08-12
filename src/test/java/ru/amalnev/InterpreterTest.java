@@ -42,7 +42,9 @@ public class InterpreterTest
                 {"/interpreter-test-10.txt", 40},
                 {"/interpreter-test-11.txt", 1},
                 {"/interpreter-test-12.txt", 100},
-                {"/interpreter-test-13.txt", null}
+                {"/interpreter-test-13.txt", null},
+                {"/interpreter-test-14.txt", false},
+                {"/interpreter-test-15.txt", false}
         });
     }
 

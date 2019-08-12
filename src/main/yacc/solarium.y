@@ -22,7 +22,7 @@ import ru.amalnev.solarium.language.statements.*;
 %token FALSE_KEYWORD
 %token IF_KEYWORD
 %token ELSE_KEYWORD
-%token GT LT DBLEQ AND OR
+%token GT LT DBLEQ AND OR NOT
 %token FOR_KEYWORD
 %token COLON
 %token OPEN_SQUARE_BRACKET
@@ -36,6 +36,7 @@ import ru.amalnev.solarium.language.statements.*;
 %left GT LT DBLEQ
 %left PLUS MINUS
 %left MUL DIV
+%left NOT
 %left AND
 %left OR
 %left OPEN_BRACKET CLOSE_BRACKET
@@ -237,6 +238,9 @@ unary_operation: unary_operator expression {
 
 unary_operator : MINUS {
 	$$ = new ParserVal(new UnaryMinus());
+ }
+ | NOT {
+ 	$$ = new ParserVal(new Not());
  }
  ;
 
