@@ -1,5 +1,6 @@
 %{
 import java.util.*;
+import java.util.function.*;
 import java.io.IOException;
 import lombok.Getter;
 import ru.amalnev.solarium.language.operators.*;
@@ -40,6 +41,7 @@ import ru.amalnev.solarium.language.statements.*;
 %left AND
 %left OR
 %left OPEN_BRACKET CLOSE_BRACKET
+%left DOT
 
 %%
 input: statement_list  {
@@ -303,16 +305,29 @@ array_literal: OPEN_SQUARE_BRACKET expression_list CLOSE_SQUARE_BRACKET {
  }
  ;
 
-function_call: function_name OPEN_BRACKET expression_list CLOSE_BRACKET {
+function_call: expression DOT function_call {
+	callChainBuilder = (functionCall, argument) -> {
+		List<IExpression> existingArguments = functionCall.getFunctionCallArguments();
+		if(existingArguments.size() > 0 && existingArguments.get(0) instanceof FunctionCallExpression)
+		{
+			callChainBuilder.accept((FunctionCallExpression)existingArguments.get(0), argument);
+		}
+		else
+		{
+			functionCall.getFunctionCallArguments().add(0, argument);
+		}
+	};
+
+	FunctionCallExpression functionCall = (FunctionCallExpression)$3.obj;
+	IExpression argument = (IExpression)$1.obj;
+	callChainBuilder.accept(functionCall, argument);
+	$$ = $3;
+ }
+ | function_name OPEN_BRACKET expression_list CLOSE_BRACKET {
 	FunctionCallExpression functionCall = new FunctionCallExpression();
 	functionCall.setFunctionName($1.sval);
 	functionCall.setFunctionCallArguments((List<IExpression>)$3.obj);
 	$$ = new ParserVal(functionCall);
- }
- | expression DOT function_call {
-	FunctionCallExpression expr = (FunctionCallExpression)$3.obj;
-	expr.getFunctionCallArguments().add(0,(IExpression)$1.obj);
-	$$ = $3;
  }
  ;
 
@@ -341,6 +356,8 @@ expression_list: {
 %%
 
 private FunctionDefinition entryPointFunction;
+
+private BiConsumer<FunctionCallExpression, IExpression> callChainBuilder;
 
 @Getter
 private Lexer lexer;

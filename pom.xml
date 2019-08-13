@@ -110,6 +110,7 @@
                                 <argument>-Jpackage=ru.amalnev.solarium.language</argument>
                                 <argument>-Jthrows=ParserException,IOException</argument>
                                 <argument>-Jnorun</argument>
+                                <argument>-v</argument>
                                 <argument>${project.basedir}/src/main/yacc/solarium.y</argument>
                             </arguments>
                         </configuration>

@@ -19,12 +19,13 @@ package ru.amalnev.solarium.language;
 
 //#line 2 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 import java.util.*;
+import java.util.function.*;
 import java.io.IOException;
 import lombok.Getter;
 import ru.amalnev.solarium.language.operators.*;
 import ru.amalnev.solarium.language.expressions.*;
 import ru.amalnev.solarium.language.statements.*;
-//#line 24 "Parser.java"
+//#line 25 "Parser.java"
 
 
 
@@ -211,7 +212,7 @@ final static short yylen[] = {                            2,
     5,    2,    6,    0,    3,    1,    3,    3,    1,    1,
     1,    1,    1,    1,    4,    1,    1,    2,    1,    1,
     3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-    1,    1,    1,    1,    1,    1,    3,    4,    3,    1,
+    1,    1,    1,    1,    1,    1,    3,    3,    4,    1,
     0,    3,    1,
 };
 final static short yydefred[] = {                         0,
@@ -224,7 +225,7 @@ final static short yydefred[] = {                         0,
     0,    0,    0,   20,    0,    0,    0,   50,    0,    0,
    29,    0,    0,   57,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,   22,    0,    0,
-   26,    0,    0,    0,    0,   35,    0,   58,    0,    0,
+   26,    0,    0,    0,    0,   35,    0,   59,    0,    0,
    21,    0,   18,   23,   25,    0,   17,
 };
 final static short yydgoto[] = {                         16,
@@ -283,9 +284,9 @@ yytable = new short[]{                         39,
   107,    7,   29,   15,   29,   60,   29,   29,   62,   62,
    99,  100,   61,   61,   19,   29,   29,   29,   29,   29,
    24,   24,   14,   29,   29,   27,   62,   29,   29,   29,
-   29,   29,   59,    2,   59,   59,   28,   97,   85,   42,
+   29,   29,   58,    2,   58,   58,   28,   97,   85,   42,
    90,    0,    0,   31,   31,   31,   31,   31,    0,   32,
-    0,   31,   59,    0,    0,   31,   31,   31,   31,   31,
+    0,   31,   58,    0,    0,   31,   31,   31,   31,   31,
    32,   32,   32,   32,   32,    0,   34,    0,   32,    0,
     0,    0,   32,   32,   32,   32,   32,   34,   34,   34,
    34,   34,    0,    0,   49,   34,   49,   49,    0,   34,
@@ -445,17 +446,19 @@ final static String yyrule[] = {
 "literal : array_literal",
 "literal : NULL_KEYWORD",
 "array_literal : OPEN_SQUARE_BRACKET expression_list CLOSE_SQUARE_BRACKET",
-"function_call : function_name OPEN_BRACKET expression_list CLOSE_BRACKET",
 "function_call : expression DOT function_call",
+"function_call : function_name OPEN_BRACKET expression_list CLOSE_BRACKET",
 "function_name : WORD",
 "expression_list :",
 "expression_list : expression_list COMMA expression",
 "expression_list : expression",
 };
 
-//#line 342 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 357 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 
 private FunctionDefinition entryPointFunction;
+
+private BiConsumer<FunctionCallExpression, IExpression> callChainBuilder;
 
 @Getter
 private Lexer lexer;
@@ -489,7 +492,7 @@ public FunctionDefinition parseFromString(final String inputString) throws Parse
     return entryPointFunction;
 }
 
-//#line 420 "Parser.java"
+//#line 423 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -645,7 +648,7 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 45 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 47 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	FunctionDefinition entryPoint = new FunctionDefinition();
 	entryPoint.setBody((CodeBlock)val_peek(0).obj);
@@ -653,7 +656,7 @@ case 1:
  }
 break;
 case 3:
-//#line 53 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 55 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	CodeBlock codeBlock = new CodeBlock();
 	codeBlock.getStatements().add((IStatement)val_peek(0).obj);
@@ -661,7 +664,7 @@ case 3:
  }
 break;
 case 4:
-//#line 58 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 60 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	CodeBlock codeBlock = (CodeBlock)val_peek(1).obj;
   	codeBlock.getStatements().add((IStatement)val_peek(0).obj);
@@ -669,82 +672,82 @@ case 4:
  }
 break;
 case 5:
-//#line 65 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 67 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(1);
  }
 break;
 case 6:
-//#line 70 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 72 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 7:
-//#line 73 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 75 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = new ParserVal(new ExpressionStatement((IExpression)val_peek(0).obj));
  }
 break;
 case 8:
-//#line 76 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 78 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = val_peek(0);
  }
 break;
 case 9:
-//#line 79 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 81 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 10:
-//#line 82 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 84 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 11:
-//#line 85 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 87 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 12:
-//#line 88 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 90 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 13:
-//#line 93 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 95 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	BreakStatement stmt = new BreakStatement();
 	yyval = new ParserVal(stmt);
  }
 break;
 case 14:
-//#line 99 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 101 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	ReturnStatement stmt = new ReturnStatement((IExpression)val_peek(0).obj);
 	yyval = new ParserVal(stmt);
  }
 break;
 case 15:
-//#line 103 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 105 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	ReturnStatement stmt = new ReturnStatement();
 	yyval = new ParserVal(stmt);
  }
 break;
 case 16:
-//#line 109 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 111 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 17:
-//#line 114 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 116 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	Variable var = (Variable)val_peek(4).obj;
 	IExpression collection = (IExpression)val_peek(2).obj;
@@ -758,19 +761,19 @@ case 17:
  }
 break;
 case 18:
-//#line 127 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 129 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(1);
  }
 break;
 case 19:
-//#line 132 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 134 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 20:
-//#line 135 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 137 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	ConditionalStatement conditionalStatement = (ConditionalStatement)val_peek(1).obj;
 	conditionalStatement.setNegativeStatements((CodeBlock)val_peek(0).obj);
@@ -778,7 +781,7 @@ case 20:
  }
 break;
 case 21:
-//#line 142 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 144 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	ConditionalStatement conditionalStatement = new ConditionalStatement();
 	conditionalStatement.setCondition((IExpression)val_peek(2).obj);
@@ -787,13 +790,13 @@ case 21:
  }
 break;
 case 22:
-//#line 150 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 152 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = new ParserVal((CodeBlock)val_peek(0).obj);
  }
 break;
 case 23:
-//#line 155 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 157 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	FunctionDefinition functionDefinition = new FunctionDefinition();
 	functionDefinition.setBody((CodeBlock)val_peek(0).obj);
@@ -803,13 +806,13 @@ case 23:
  }
 break;
 case 24:
-//#line 164 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 166 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = new ParserVal(new LinkedList<String>());
  }
 break;
 case 25:
-//#line 167 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 169 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	List<String> argumentList = (List<String>)val_peek(2).obj;
         argumentList.add(val_peek(0).sval);
@@ -817,7 +820,7 @@ case 25:
  }
 break;
 case 26:
-//#line 172 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 174 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	List<String> argumentList = new LinkedList<>();
  	argumentList.add(val_peek(0).sval);
@@ -825,7 +828,7 @@ case 26:
  }
 break;
 case 27:
-//#line 179 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 181 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	AssignmentStatement stmt = new VariableAssignmentStatement();
 	stmt.setLeftHandOperand((Variable)val_peek(2).obj);
@@ -834,7 +837,7 @@ case 27:
  }
 break;
 case 28:
-//#line 185 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 187 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	AssignmentStatement stmt = new ArrayElementAssignmentStatement();
 	stmt.setLeftHandOperand((IExpression)val_peek(2).obj);
@@ -843,43 +846,43 @@ case 28:
  }
 break;
 case 29:
-//#line 193 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 195 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = new ParserVal(new Variable(val_peek(0).sval));
  }
 break;
 case 30:
-//#line 198 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 200 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 31:
-//#line 201 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 203 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 32:
-//#line 204 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 206 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 33:
-//#line 207 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 209 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 34:
-//#line 210 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 212 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 35:
-//#line 215 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 217 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	ArrayDereferenceExpression expr = new ArrayDereferenceExpression();
 	expr.setArrayExpression((IExpression)val_peek(3).obj);
@@ -888,19 +891,19 @@ case 35:
  }
 break;
 case 36:
-//#line 223 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 225 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 37:
-//#line 226 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 228 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 38:
-//#line 231 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 233 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	UnaryOperationExpression expr = new UnaryOperationExpression();
 	expr.setOperand((IExpression)val_peek(0).obj);
@@ -909,115 +912,115 @@ case 38:
  }
 break;
 case 39:
-//#line 239 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 241 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = new ParserVal(new UnaryMinus());
  }
 break;
 case 40:
-//#line 242 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 244 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = new ParserVal(new Not());
  }
 break;
 case 41:
-//#line 247 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 249 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Plus());
  }
 break;
 case 42:
-//#line 250 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 252 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Minus());
  }
 break;
 case 43:
-//#line 253 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 255 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Mul());
  }
 break;
 case 44:
-//#line 256 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 258 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Div());
  }
 break;
 case 45:
-//#line 259 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 261 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Gt());
  }
 break;
 case 46:
-//#line 262 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 264 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Lt());
  }
 break;
 case 47:
-//#line 265 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 267 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Eq());
  }
 break;
 case 48:
-//#line 268 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 270 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new And());
  }
 break;
 case 49:
-//#line 271 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 273 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = constructBinaryOperation((IExpression)val_peek(2).obj, (IExpression)val_peek(0).obj, new Or());
  }
 break;
 case 50:
-//#line 274 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 276 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = val_peek(1);
  }
 break;
 case 51:
-//#line 279 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 281 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = new ParserVal(new IntegerLiteral(val_peek(0).ival));
  }
 break;
 case 52:
-//#line 282 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 284 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = new ParserVal(new StringLiteral(val_peek(0).sval));
  }
 break;
 case 53:
-//#line 285 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 287 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = new ParserVal(new BooleanLiteral(true));
  }
 break;
 case 54:
-//#line 288 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 290 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
   	yyval = new ParserVal(new BooleanLiteral(false));
  }
 break;
 case 55:
-//#line 291 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 293 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 56:
-//#line 294 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 296 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	yyval = new ParserVal(new NullLiteral());
  }
 break;
 case 57:
-//#line 299 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 301 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	ArrayLiteral literal = new ArrayLiteral();
 	literal.setElements((List<IExpression>)val_peek(1).obj);
@@ -1025,7 +1028,28 @@ case 57:
  }
 break;
 case 58:
-//#line 306 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 308 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+{
+	callChainBuilder = (functionCall, argument) -> {
+		List<IExpression> existingArguments = functionCall.getFunctionCallArguments();
+		if(existingArguments.size() > 0 && existingArguments.get(0) instanceof FunctionCallExpression)
+		{
+			callChainBuilder.accept((FunctionCallExpression)existingArguments.get(0), argument);
+		}
+		else
+		{
+			functionCall.getFunctionCallArguments().add(0, argument);
+		}
+	};
+
+	FunctionCallExpression functionCall = (FunctionCallExpression)val_peek(0).obj;
+	IExpression argument = (IExpression)val_peek(2).obj;
+	callChainBuilder.accept(functionCall, argument);
+	yyval = val_peek(0);
+ }
+break;
+case 59:
+//#line 326 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	FunctionCallExpression functionCall = new FunctionCallExpression();
 	functionCall.setFunctionName(val_peek(3).sval);
@@ -1033,29 +1057,21 @@ case 58:
 	yyval = new ParserVal(functionCall);
  }
 break;
-case 59:
-//#line 312 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
-{
-	FunctionCallExpression expr = (FunctionCallExpression)val_peek(0).obj;
-	expr.getFunctionCallArguments().add(0,(IExpression)val_peek(2).obj);
-	yyval = val_peek(0);
- }
-break;
 case 60:
-//#line 319 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 334 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	yyval = val_peek(0);
  }
 break;
 case 61:
-//#line 324 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 339 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	List<IExpression> argumentList = new LinkedList<>();
         yyval = new ParserVal(argumentList);
  }
 break;
 case 62:
-//#line 328 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 343 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
  	List<IExpression> argumentList = (List<IExpression>)val_peek(2).obj;
  	IExpression expression = (IExpression)val_peek(0).obj;
@@ -1064,7 +1080,7 @@ case 62:
  }
 break;
 case 63:
-//#line 334 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
+//#line 349 "/home/amalnev/dev/solarium/src/main/yacc/solarium.y"
 {
 	List<IExpression> argumentList = new LinkedList<>();
 	IExpression expression = (IExpression)val_peek(0).obj;
@@ -1072,7 +1088,7 @@ case 63:
 	yyval = new ParserVal(argumentList);
  }
 break;
-//#line 997 "Parser.java"
+//#line 1013 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
