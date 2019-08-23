@@ -1,22 +1,25 @@
 package ru.amalnev.solarium.language.expressions;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.RValue;
 import ru.amalnev.solarium.language.operators.IUnaryOperator;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class UnaryOperationExpression implements IExpression
 {
-    private IExpression operand;
-
     private IUnaryOperator operator;
 
+    private IExpression operand;
+
     @Override
-    public Object evaluate(ExecutionContext context)
+    public RValue evaluate(ExecutionContext context)
     {
-        return operator.operate(operand.evaluate(context));
+        return new RValue(operator.operate(operand.evaluate(context).getValue()));
     }
 
     @Override

@@ -1,59 +1,24 @@
 package ru.amalnev.solarium.interpreter;
 
-import ru.amalnev.solarium.language.statements.CodeBlock;
+import ru.amalnev.solarium.language.statements.CompoundStatement;
 import ru.amalnev.solarium.language.statements.FunctionDefinition;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class ExecutionContext
+public class ExecutionContext implements ICallStack, IVariableScope, IFunctionRepository, IStackFrame
 {
-    private CallStack callStack = new CallStack();
+    private final FunctionRepository functionRepository;
 
-    private Map<String, FunctionDefinition> functionDefinitions = new HashMap<>();
+    private final CallStack callStack;
 
-    public LocalVariable defineLocalVariable(final String name)
+    public ExecutionContext()
     {
-        return callStack.defineLocalVariable(name);
+        functionRepository = new FunctionRepository();
+        callStack = new CallStack();
+        callStack.setFunctionRepository(functionRepository);
     }
 
-    public LocalVariable defineLocalVariable(final String name, final Object value)
+    public CompoundStatement enterFunction(final String functionName, Object... args)
     {
-        return callStack.defineLocalVariable(name, value);
-    }
-
-    public void undefineLocalVariable(final String name)
-    {
-        callStack.undefineLocalVariable(name);
-    }
-
-    public LocalVariable getLocalVariable(final String name)
-    {
-        return callStack.getLocalVariable(name);
-    }
-
-    public <T> T getLocalVariableValue(final String name, final Class<T> valueType)
-    {
-        return (T) callStack.getLocalVariable(name).getValue();
-    }
-
-    public void defineFunction(final FunctionDefinition functionDefinition)
-    {
-        final String functionName = functionDefinition.getFunctionName();
-        if (functionDefinitions.get(functionName) != null)
-            throw new InterpreterException("Redefinition: " + functionName);
-
-        functionDefinitions.put(functionName, functionDefinition);
-    }
-
-    public CodeBlock enterFunction(final String functionName, Object... args)
-    {
-        final FunctionDefinition functionDefinition = functionDefinitions.get(functionName);
-        if (functionDefinition == null)
-            throw new InterpreterException(functionName + " is not defined");
-
-        callStack.enterFunction(functionDefinition, args);
-        return functionDefinition.getBody();
+        return callStack.enterFunction(functionName, args);
     }
 
     public Object exitFunction()
@@ -66,8 +31,75 @@ public class ExecutionContext
         callStack.setReturnValue(value);
     }
 
-    public boolean isVariableDefined(final String name)
+    @Override
+    public void defineScalar(String name)
     {
-        return callStack.isVariableDefined(name);
+        callStack.defineScalar(name);
+    }
+
+    @Override
+    public void defineArray(String name)
+    {
+        callStack.defineArray(name);
+    }
+
+    @Override
+    public Object getValue(String name)
+    {
+        return callStack.getValue(name);
+    }
+
+    @Override
+    public Object getValue(String name, Integer index)
+    {
+        return callStack.getValue(name, index);
+    }
+
+    @Override
+    public <T> T getValue(String name, Class<T> valueClass)
+    {
+        return callStack.getValue(name, valueClass);
+    }
+
+    @Override
+    public <T> T getValue(String name, Integer index, Class<T> valueClass)
+    {
+        return callStack.getValue(name, index, valueClass);
+    }
+
+    @Override
+    public void setValue(String name, Object value)
+    {
+        callStack.setValue(name, value);
+    }
+
+    @Override
+    public void setValue(String name, Integer index, Object value)
+    {
+        callStack.setValue(name, index, value);
+    }
+
+    @Override
+    public void defineFunction(FunctionDefinition functionDefinition)
+    {
+        functionRepository.defineFunction(functionDefinition);
+    }
+
+    @Override
+    public FunctionDefinition getFunctionDefinition(String name)
+    {
+        return functionRepository.getFunctionDefinition(name);
+    }
+
+    @Override
+    public void enterEnclosedScope()
+    {
+        callStack.enterEnclosedScope();
+    }
+
+    @Override
+    public void exitCurrentScope()
+    {
+        callStack.exitCurrentScope();
     }
 }

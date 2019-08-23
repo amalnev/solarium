@@ -7,7 +7,6 @@ public abstract class AbstractNativeFunction extends FunctionDefinition implemen
 {
     protected void setReturnValue(final ExecutionContext context, final Object returnValue)
     {
-        final String functionName = getClass().getAnnotation(FunctionName.class).value();
-        context.getLocalVariable(functionName).setValue(returnValue);
+        context.setReturnValue(returnValue);
     }
 }

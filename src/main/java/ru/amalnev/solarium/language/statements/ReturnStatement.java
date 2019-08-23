@@ -8,7 +8,7 @@ import ru.amalnev.solarium.language.expressions.IExpression;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReturnStatement extends AbstractStatement
+public class ReturnStatement implements IStatement
 {
     @Setter
     private IExpression what;
@@ -18,7 +18,7 @@ public class ReturnStatement extends AbstractStatement
     {
         if (what != null)
         {
-            final Object returnValue = what.evaluate(context);
+            final Object returnValue = what.evaluate(context).getValue();
             context.setReturnValue(returnValue);
         }
 
@@ -28,6 +28,6 @@ public class ReturnStatement extends AbstractStatement
     @Override
     public String toString()
     {
-        return super.toString();
+        return "return " + what.toString();
     }
 }

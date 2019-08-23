@@ -1,27 +1,30 @@
 package ru.amalnev.solarium.language.expressions;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.RValue;
 import ru.amalnev.solarium.language.operators.IBinaryOperator;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class BinaryOperationExpression implements IExpression
 {
     private IExpression leftOperand;
 
-    private IExpression rightOperand;
-
     private IBinaryOperator operator;
 
-    @Override
-    public Object evaluate(ExecutionContext context)
-    {
-        final Object leftValue = leftOperand.evaluate(context);
-        final Object rightValue = rightOperand.evaluate(context);
+    private IExpression rightOperand;
 
-        return operator.operate(leftValue, rightValue);
+    @Override
+    public RValue evaluate(ExecutionContext context)
+    {
+        final Object leftValue = leftOperand.evaluate(context).getValue();
+        final Object rightValue = rightOperand.evaluate(context).getValue();
+
+        return new RValue(operator.operate(leftValue, rightValue));
     }
 
     @Override

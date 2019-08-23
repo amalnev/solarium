@@ -9,13 +9,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class FunctionDefinition extends AbstractStatement
+public class FunctionDefinition implements IStatement
 {
     private String functionName;
 
     private List<String> argumentNames = new LinkedList<>();
 
-    private CodeBlock body;
+    private CompoundStatement body;
 
     public String toString()
     {

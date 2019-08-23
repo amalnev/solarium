@@ -2,12 +2,14 @@ package ru.amalnev.solarium.language.statements;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
 import ru.amalnev.solarium.language.expressions.IExpression;
 
+@NoArgsConstructor
 @AllArgsConstructor
-public class ExpressionStatement extends AbstractStatement
+public class ExpressionStatement implements IStatement
 {
     @Getter
     @Setter

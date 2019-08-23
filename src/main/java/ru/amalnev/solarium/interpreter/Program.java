@@ -13,7 +13,7 @@ public class Program
     public static Object runFromString(final String sourceCode) throws IOException, ParserException
     {
         final Parser parser = new Parser();
-        final FunctionDefinition entryPoint = parser.parseFromString(sourceCode);
+        final FunctionDefinition entryPoint = parser.parse(new StringReader(sourceCode));
         final ExecutionContext executionContext = new ExecutionContext();
 
         final Library library = new Library();
@@ -23,7 +23,7 @@ public class Program
 
         final FunctionCallExpression entryPointCall = new FunctionCallExpression();
         entryPointCall.setFunctionName(entryPoint.getFunctionName());
-        return entryPointCall.evaluate(executionContext);
+        return entryPointCall.evaluate(executionContext).getValue();
     }
 
     public static Object runFromFile(final String sourceFilePath) throws IOException, ParserException

@@ -10,8 +10,8 @@ public class GetAttribute extends AbstractNativeFunction
     @Override
     public void call(ExecutionContext context)
     {
-        final WebElement element = context.getLocalVariableValue("element", WebElement.class);
-        final String attributeName = context.getLocalVariableValue("attribute_name", String.class);
+        final WebElement element = context.getValue("element", WebElement.class);
+        final String attributeName = context.getValue("attribute_name", String.class);
         setReturnValue(context, element.getAttribute(attributeName));
     }
 }

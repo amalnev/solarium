@@ -3,6 +3,7 @@ package ru.amalnev.solarium.language.expressions;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.RValue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,15 +38,15 @@ public class FunctionCallExpression implements IExpression
     }
 
     @Override
-    public Object evaluate(final ExecutionContext context)
+    public RValue evaluate(final ExecutionContext context)
     {
         final Object[] functionCallArgumentValues = new Object[functionCallArguments.size()];
         for (int i = 0; i < functionCallArguments.size(); i++)
         {
-            functionCallArgumentValues[i] = functionCallArguments.get(i).evaluate(context);
+            functionCallArgumentValues[i] = functionCallArguments.get(i).evaluate(context).getValue();
         }
 
         context.enterFunction(functionName, functionCallArgumentValues).execute(context);
-        return context.exitFunction();
+        return new RValue(context.exitFunction());
     }
 }

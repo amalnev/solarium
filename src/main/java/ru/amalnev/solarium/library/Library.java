@@ -1,7 +1,7 @@
 package ru.amalnev.solarium.library;
 
 import org.reflections.Reflections;
-import ru.amalnev.solarium.language.statements.CodeBlock;
+import ru.amalnev.solarium.language.statements.CompoundStatement;
 import ru.amalnev.solarium.language.statements.FunctionDefinition;
 
 import java.util.*;
@@ -28,7 +28,7 @@ public class Library
                         functionDefinition.setArgumentNames(argumentNames);
                     }
 
-                    final CodeBlock body = new CodeBlock();
+                    final CompoundStatement body = new CompoundStatement();
                     body.getStatements().add(new NativeStatement(nativeFunctionName, this));
 
                     functionDefinition.setBody(body);

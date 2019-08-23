@@ -2,7 +2,7 @@ package ru.amalnev.solarium.language.statements;
 
 import ru.amalnev.solarium.interpreter.ExecutionContext;
 
-public class BreakStatement extends AbstractStatement
+public class BreakStatement implements IStatement
 {
     @Override
     public ControlFlowInfluence execute(ExecutionContext context)

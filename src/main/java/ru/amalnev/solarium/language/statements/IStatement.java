@@ -8,7 +8,8 @@ public interface IStatement
     {
         NO_INFLUENCE,
         EXIT_CURRENT_BLOCK,
-        EXIT_CURRENT_FUNCTION
+        EXIT_CURRENT_FUNCTION,
+        EXIT_CURRENT_ITERATION
     }
 
     ControlFlowInfluence execute(ExecutionContext context);

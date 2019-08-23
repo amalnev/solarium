@@ -9,7 +9,7 @@ public class Sleep extends AbstractNativeFunction
     @Override
     public void call(ExecutionContext context)
     {
-        final Integer duration = context.getLocalVariableValue("duration", Integer.class);
+        final Integer duration = context.getValue("duration", Integer.class);
         try
         {
             Thread.sleep(duration);

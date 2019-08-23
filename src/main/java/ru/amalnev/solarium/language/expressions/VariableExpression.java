@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.LValue;
+import ru.amalnev.solarium.interpreter.RValue;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class Variable implements IExpression
+public class VariableExpression implements IExpression
 {
     private String name;
 
@@ -18,8 +20,8 @@ public class Variable implements IExpression
     }
 
     @Override
-    public Object evaluate(final ExecutionContext context)
+    public LValue evaluate(final ExecutionContext context)
     {
-        return context.getLocalVariable(name).getValue();
+        return new LValue(name, context);
     }
 }

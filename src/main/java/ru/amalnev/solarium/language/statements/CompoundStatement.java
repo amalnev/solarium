@@ -7,32 +7,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class CodeBlock implements IStatement
+public class CompoundStatement implements IStatement
 {
     private List<IStatement> statements = new ArrayList<>();
 
     @Override
     public ControlFlowInfluence execute(final ExecutionContext context)
     {
-        for (final IStatement statement : statements)
+        context.enterEnclosedScope();
+        try
         {
-            final ControlFlowInfluence result = statement.execute(context);
-            if (result != ControlFlowInfluence.NO_INFLUENCE)
-                return result;
-        }
+            for (final IStatement statement : statements)
+            {
+                final ControlFlowInfluence result = statement.execute(context);
+                if (result != ControlFlowInfluence.NO_INFLUENCE)
+                    return result;
+            }
 
-        return ControlFlowInfluence.NO_INFLUENCE;
+            return ControlFlowInfluence.NO_INFLUENCE;
+        }
+        finally
+        {
+            context.exitCurrentScope();
+        }
     }
 
     @Override
     public String toString()
     {
         final StringBuilder builder = new StringBuilder();
+        builder.append("{\n");
         statements.forEach(statement -> {
             builder.append(statement);
             builder.append("\n");
         });
-
+        builder.append("}");
         return builder.toString();
     }
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.RValue;
 
 @AllArgsConstructor
 public abstract class LiteralExpression<T> implements IExpression
@@ -18,8 +19,8 @@ public abstract class LiteralExpression<T> implements IExpression
     }
 
     @Override
-    public Object evaluate(final ExecutionContext context)
+    public RValue evaluate(final ExecutionContext context)
     {
-        return value;
+        return new RValue(value);
     }
 }

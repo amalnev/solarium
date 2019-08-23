@@ -10,7 +10,7 @@ public class GetPageTitle extends AbstractNativeFunction
     @Override
     public void call(ExecutionContext context)
     {
-        final WebDriver browser = context.getLocalVariableValue("browser", WebDriver.class);
+        final WebDriver browser = context.getValue("browser", WebDriver.class);
         setReturnValue(context, browser.getTitle());
     }
 }

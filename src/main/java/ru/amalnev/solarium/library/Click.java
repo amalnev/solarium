@@ -13,8 +13,8 @@ public class Click extends AbstractNativeFunction
     @Override
     public void call(ExecutionContext context)
     {
-        final WebDriver browser = context.getLocalVariableValue("browser", WebDriver.class);
-        final WebElement element = context.getLocalVariableValue("element", WebElement.class);
+        final WebDriver browser = context.getValue("browser", WebDriver.class);
+        final WebElement element = context.getValue("element", WebElement.class);
 
         try
         {

@@ -10,7 +10,7 @@ public class CloseBrowser extends AbstractNativeFunction
     @Override
     public void call(final ExecutionContext context)
     {
-        final WebDriver webDriver = context.getLocalVariableValue("browser", WebDriver.class);
+        final WebDriver webDriver = context.getValue("browser", WebDriver.class);
         if (webDriver != null) webDriver.close();
     }
 }

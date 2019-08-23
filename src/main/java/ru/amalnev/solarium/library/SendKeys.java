@@ -10,8 +10,8 @@ public class SendKeys extends AbstractNativeFunction
     @Override
     public void call(ExecutionContext context)
     {
-        final WebElement element = context.getLocalVariableValue("element", WebElement.class);
-        final String keys = context.getLocalVariableValue("keys", String.class);
+        final WebElement element = context.getValue("element", WebElement.class);
+        final String keys = context.getValue("keys", String.class);
         element.sendKeys(keys);
     }
 }

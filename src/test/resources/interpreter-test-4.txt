@@ -7,7 +7,7 @@ result = 0;
 if(i < 6)
 {
     result = result + 1;
-};
+}
 
 if(j > 3)
 {
@@ -16,6 +16,6 @@ if(j > 3)
 else
 {
     result = result - 1;
-};
+}
 
 return result;

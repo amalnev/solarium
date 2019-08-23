@@ -11,7 +11,7 @@ public class Chrome extends AbstractNativeFunction
     @Override
     public void call(ExecutionContext context)
     {
-        final String driverPath = (String) context.getLocalVariable("driverPath").getValue();
+        final String driverPath = (String) context.getValue("driverPath");
         System.setProperty("webdriver.chrome.driver", driverPath);
         setReturnValue(context, new ChromeDriver());
     }

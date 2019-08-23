@@ -13,8 +13,8 @@ public abstract class FindElement extends AbstractNativeFunction
         final String parentArg = getClass().getAnnotation(FunctionArguments.class).value()[0];
         final String searchTermArg =  getClass().getAnnotation(FunctionArguments.class).value()[1];
 
-        final SearchContext parentContext = context.getLocalVariableValue(parentArg, SearchContext.class);
-        final String searchTerm = context.getLocalVariableValue(searchTermArg, String.class);
+        final SearchContext parentContext = context.getValue(parentArg, SearchContext.class);
+        final String searchTerm = context.getValue(searchTermArg, String.class);
 
         try
         {

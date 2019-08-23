@@ -9,7 +9,7 @@ public class Print extends AbstractNativeFunction
     @Override
     public void call(final ExecutionContext context)
     {
-        final Object what = context.getLocalVariableValue("what", Object.class);
+        final Object what = context.getValue("what", Object.class);
         System.out.println(what.toString());
     }
 }

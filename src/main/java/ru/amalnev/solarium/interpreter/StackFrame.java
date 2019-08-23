@@ -6,47 +6,32 @@ import ru.amalnev.solarium.language.statements.FunctionDefinition;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
-public class StackFrame
+public class StackFrame implements IVariableScope, IStackFrame
 {
     @Getter
     @Setter
     private String functionName;
 
-    private Map<String, LocalVariable> localVariables = new HashMap<>();
+    private Scope currentScope = new Scope();
 
-    public boolean isVariableDefined(final String name)
+    @Getter
+    @Setter
+    private Object returnValue;
+
+    @Override
+    public void enterEnclosedScope()
     {
-        return localVariables.get(name) != null;
+        final Scope childScope = new Scope();
+        childScope.setParentScope(currentScope);
+        currentScope = childScope;
     }
 
-    public LocalVariable getLocalVariable(final String name)
+    @Override
+    public void exitCurrentScope()
     {
-        final LocalVariable localVariable = localVariables.get(name);
-        if (localVariable == null)
-            throw new InterpreterException("Undefined variable: " + name);
-
-        return localVariable;
-    }
-
-    public LocalVariable defineLocalVariable(final String name)
-    {
-        if (localVariables.get(name) != null) throw new InterpreterException("Redefinition: " + name);
-        final LocalVariable localVariable = new LocalVariable(name);
-        localVariables.put(name, localVariable);
-        return localVariable;
-    }
-
-    public LocalVariable defineLocalVariable(final String name, final Object value)
-    {
-        final LocalVariable localVariable = defineLocalVariable(name);
-        localVariable.setValue(value);
-        return localVariable;
-    }
-
-    public void undefineLocalVariable(final String name)
-    {
-        localVariables.remove(name);
+        currentScope = currentScope.getParentScope();
     }
 
     public static StackFrame makeFrameForFunctionCall(final FunctionDefinition functionDefinition,
@@ -59,10 +44,61 @@ public class StackFrame
 
         for (int i = 0; i < args.length; i++)
         {
-            stackFrame.defineLocalVariable(functionDefinition.getArgumentNames().get(i), args[i]);
+            final String argumentName = functionDefinition.getArgumentNames().get(i);
+            final Object argumentValue = args[i];
+
+            stackFrame.defineScalar(argumentName);
+            stackFrame.setValue(argumentName, argumentValue);
         }
 
-        stackFrame.defineLocalVariable(functionDefinition.getFunctionName());
         return stackFrame;
+    }
+
+    @Override
+    public void defineScalar(String name)
+    {
+        currentScope.defineScalar(name);
+    }
+
+    @Override
+    public void defineArray(String name)
+    {
+        currentScope.defineArray(name);
+    }
+
+    @Override
+    public Object getValue(String name)
+    {
+        return currentScope.getValue(name);
+    }
+
+    @Override
+    public Object getValue(String name, Integer index)
+    {
+        return currentScope.getValue(name, index);
+    }
+
+    @Override
+    public <T> T getValue(String name, Class<T> valueClass)
+    {
+        return currentScope.getValue(name, valueClass);
+    }
+
+    @Override
+    public <T> T getValue(String name, Integer index, Class<T> valueClass)
+    {
+        return currentScope.getValue(name, index, valueClass);
+    }
+
+    @Override
+    public void setValue(String name, Object value)
+    {
+        currentScope.setValue(name, value);
+    }
+
+    @Override
+    public void setValue(String name, Integer index, Object value)
+    {
+        currentScope.setValue(name, index, value);
     }
 }

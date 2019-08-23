@@ -1,17 +1,17 @@
 function summator(a, b)
 {
     return a + b;
-};
+}
 
 function subtractor(a, b)
 {
     return a - b;
-};
+}
 
 function divider(a, b)
 {
     return a / b;
-};
+}
 
 a = 10;
 b = 20;
