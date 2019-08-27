@@ -14,6 +14,7 @@ public class StackFrame implements IVariableScope, IStackFrame
     @Setter
     private String functionName;
 
+    @Getter
     private Scope currentScope = new Scope();
 
     @Getter

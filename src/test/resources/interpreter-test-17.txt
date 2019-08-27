@@ -1,0 +1,2 @@
+a = "sdfg\"123\"dfg\n567";
+print(a);

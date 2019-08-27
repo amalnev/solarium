@@ -273,6 +273,22 @@ primary_expression
  | OPEN_BRACKET expression CLOSE_BRACKET {
  	$$ = $2;
  }
+ | array_literal {
+ 	$$ = $1;
+ }
+ ;
+
+array_literal
+ : OPEN_SQUARE_BRACKET argument_expression_list CLOSE_SQUARE_BRACKET {
+	List<IExpression> elements = (List<IExpression>) $2.obj;
+	ArrayLiteralExpression expr = new ArrayLiteralExpression();
+	expr.setElements(elements);
+	$$ = new ParserVal(expr);
+ }
+ | OPEN_SQUARE_BRACKET  CLOSE_SQUARE_BRACKET {
+	ArrayLiteralExpression expr = new ArrayLiteralExpression();
+	$$ = new ParserVal(expr);
+ }
  ;
 
 argument_expression_list

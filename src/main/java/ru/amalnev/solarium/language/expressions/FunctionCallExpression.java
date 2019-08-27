@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
 import ru.amalnev.solarium.interpreter.RValue;
+import ru.amalnev.solarium.language.statements.IStatement;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +47,8 @@ public class FunctionCallExpression implements IExpression
             functionCallArgumentValues[i] = functionCallArguments.get(i).evaluate(context).getValue();
         }
 
-        context.enterFunction(functionName, functionCallArgumentValues).execute(context);
+        final IStatement functionBody = context.enterFunction(functionName, functionCallArgumentValues);
+        if(functionBody != null) functionBody.execute(context);
         return new RValue(context.exitFunction());
     }
 }

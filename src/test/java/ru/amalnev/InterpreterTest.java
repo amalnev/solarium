@@ -30,19 +30,24 @@ public class InterpreterTest
                 /*{"/interpreter-test-1.txt"},
                 {"/start-stop-firefox.txt"},*/
                 /*{"/yandex-search.txt"},*/
-                {"/interpreter-test-1.txt", 10},
+                /*{"/interpreter-test-1.txt", 10},
                 {"/interpreter-test-2.txt", "test string"},
                 {"/interpreter-test-3.txt", 5},
                 {"/interpreter-test-4.txt", 1},
                 {"/interpreter-test-5.txt", 22},
                 {"/interpreter-test-6.txt", true},
+                {"/interpreter-test-7.txt", 160},
+                {"/interpreter-test-8.txt", 10},
+                {"/interpreter-test-9.txt", 10},
+                {"/interpreter-test-10.txt", 40},
                 {"/interpreter-test-11.txt", 1},
                 {"/interpreter-test-12.txt", 100},
                 {"/interpreter-test-13.txt", null},
                 {"/interpreter-test-14.txt", false},
                 {"/interpreter-test-15.txt", false},
                 {"/interpreter-test-16.txt", 10},
-                {"/interpreter-test-7.txt", 160}
+                {"/interpreter-test-17.txt", null},*/
+                {"/interpreter-test-18.txt", 130}
         });
     }
 

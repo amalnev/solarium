@@ -26,6 +26,7 @@ public class CallStack implements IVariableScope, ICallStack, IStackFrame
         final FunctionDefinition functionDefinition = functionRepository.getFunctionDefinition(functionName);
         if(functionDefinition == null) throw new UnknownIdentifier(functionName);
         final StackFrame stackFrame = StackFrame.makeFrameForFunctionCall(functionDefinition, args);
+        if(!frames.empty()) stackFrame.getCurrentScope().setParentScope(topFrame().getCurrentScope());
         frames.push(stackFrame);
         return functionDefinition.getBody();
     }
