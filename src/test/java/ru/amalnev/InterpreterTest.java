@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import ru.amalnev.solarium.interpreter.Program;
+import ru.amalnev.solarium.interpreter.Interpreter;
 import ru.amalnev.solarium.language.ParserException;
 
 import java.io.BufferedReader;
@@ -27,27 +27,24 @@ public class InterpreterTest
     public static List<Object[]> parameters()
     {
         return Arrays.asList(new Object[][] {
-                /*{"/interpreter-test-1.txt"},
-                {"/start-stop-firefox.txt"},*/
-                /*{"/yandex-search.txt"},*/
-                /*{"/interpreter-test-1.txt", 10},
-                {"/interpreter-test-2.txt", "test string"},
-                {"/interpreter-test-3.txt", 5},
-                {"/interpreter-test-4.txt", 1},
-                {"/interpreter-test-5.txt", 22},
-                {"/interpreter-test-6.txt", true},
-                {"/interpreter-test-7.txt", 160},
-                {"/interpreter-test-8.txt", 10},
-                {"/interpreter-test-9.txt", 10},
-                {"/interpreter-test-10.txt", 40},
-                {"/interpreter-test-11.txt", 1},
-                {"/interpreter-test-12.txt", 100},
-                {"/interpreter-test-13.txt", null},
-                {"/interpreter-test-14.txt", false},
-                {"/interpreter-test-15.txt", false},
-                {"/interpreter-test-16.txt", 10},
-                {"/interpreter-test-17.txt", null},*/
-                {"/interpreter-test-18.txt", 130}
+                {"/interpreter/interpreter-test-1.txt", 10},
+                {"/interpreter/interpreter-test-2.txt", "test string"},
+                {"/interpreter/interpreter-test-3.txt", 5},
+                {"/interpreter/interpreter-test-4.txt", 1},
+                {"/interpreter/interpreter-test-5.txt", 22},
+                {"/interpreter/interpreter-test-6.txt", true},
+                {"/interpreter/interpreter-test-7.txt", 160},
+                {"/interpreter/interpreter-test-8.txt", 10},
+                {"/interpreter/interpreter-test-9.txt", 10},
+                {"/interpreter/interpreter-test-10.txt", 40},
+                {"/interpreter/interpreter-test-11.txt", 1},
+                {"/interpreter/interpreter-test-12.txt", 100},
+                {"/interpreter/interpreter-test-13.txt", null},
+                {"/interpreter/interpreter-test-14.txt", false},
+                {"/interpreter/interpreter-test-15.txt", false},
+                {"/interpreter/interpreter-test-16.txt", 10},
+                {"/interpreter/interpreter-test-17.txt", null},
+                {"/interpreter/interpreter-test-18.txt", 130}
         });
     }
 
@@ -62,7 +59,7 @@ public class InterpreterTest
             testCode.append(reader.readLine());
         }
 
-        final Object result = Program.runFromString(testCode.toString());
+        final Object result = (new Interpreter()).runFromString(testCode.toString());
         Assert.assertEquals(result, expectedResult);
     }
 }
