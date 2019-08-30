@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import ru.amalnev.solarium.interpreter.Program;
+import ru.amalnev.solarium.interpreter.Interpreter;
 import ru.amalnev.solarium.language.ParserException;
 
 import java.io.BufferedReader;
@@ -47,7 +47,7 @@ public class InterpreterTest
                 {"/interpreter-test-15.txt", false},
                 {"/interpreter-test-16.txt", 10},
                 {"/interpreter-test-17.txt", null},*/
-                {"/interpreter-test-18.txt", 130}
+                {"/interpreter/interpreter-test-18.txt", 130}
         });
     }
 
@@ -62,7 +62,7 @@ public class InterpreterTest
             testCode.append(reader.readLine());
         }
 
-        final Object result = Program.runFromString(testCode.toString());
+        final Object result = (new Interpreter()).runFromString(testCode.toString());
         Assert.assertEquals(result, expectedResult);
     }
 }
