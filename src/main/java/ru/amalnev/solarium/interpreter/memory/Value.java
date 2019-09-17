@@ -1,60 +1,47 @@
 package ru.amalnev.solarium.interpreter.memory;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ru.amalnev.solarium.interpreter.errors.ArrayValueRequiredException;
-import ru.amalnev.solarium.interpreter.errors.IndexOutOfBoundsException;
 import ru.amalnev.solarium.interpreter.errors.InterpreterException;
-import ru.amalnev.solarium.language.utils.CommaSeparatedList;
 import ru.amalnev.solarium.language.utils.HashCodeBuilder;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @NoArgsConstructor
 public class Value implements IValue
 {
-    @Getter
-    @Setter
-    private Object scalarValue = null;
+    private ScalarValue scalarValue = new ScalarValue();
 
-    private List<IValue> arrayValue = null;
+    private ArrayValue arrayValue = null;
 
-    private Map<String, IValue> fields = new HashMap<>();
+    private AssociativeValue associativeValue = new AssociativeValue();
 
     public Value(Object scalarValue)
     {
-        this.scalarValue = scalarValue;
+        this.scalarValue.setScalarValue(scalarValue);
     }
 
     @Override
     public IValue getField(String fieldName)
     {
-        IValue field = fields.get(fieldName);
-        if (field == null)
-        {
-            field = new Value();
-            fields.put(fieldName, field);
-        }
-
-        return field;
+        return associativeValue.getField(fieldName);
     }
 
     @Override
     public IValue getArrayElement(int elementIndex) throws InterpreterException
     {
         if (arrayValue == null) throw new ArrayValueRequiredException();
-        if (arrayValue.size() <= elementIndex) throw new IndexOutOfBoundsException();
-        return arrayValue.get(elementIndex);
+        return arrayValue.getArrayElement(elementIndex);
     }
 
     @Override
     public String[] getFieldNames()
     {
-        final String[] result = new String[fields.keySet().size()];
-        return fields.keySet().toArray(result);
+        return associativeValue.getFieldNames();
+    }
+
+    @Override
+    public void copy(IAssociativeValue other) throws InterpreterException
+    {
+        associativeValue.copy(other);
     }
 
     @Override
@@ -73,48 +60,42 @@ public class Value implements IValue
     public int getArraySize() throws InterpreterException
     {
         if (arrayValue == null) throw new ArrayValueRequiredException();
-        return arrayValue.size();
+        return arrayValue.getArraySize();
     }
 
     @Override
-    public void setField(String fieldName, IValue fieldValue) throws InterpreterException
+    public void copy(IArrayValue other) throws InterpreterException
     {
-        fields.put(fieldName, fieldValue);
+        convertToArray();
+        arrayValue.copy(other);
+    }
+
+    @Override
+    public void setField(String fieldName, IValue fieldValue)
+    {
+        associativeValue.setField(fieldName, fieldValue);
     }
 
     @Override
     public void setArrayElement(int elementIndex, IValue elementValue) throws InterpreterException
     {
         if (arrayValue == null) throw new ArrayValueRequiredException();
-        if (arrayValue.size() <= elementIndex) throw new IndexOutOfBoundsException();
-        arrayValue.set(elementIndex, elementValue);
+        arrayValue.setArrayElement(elementIndex, elementValue);
     }
 
     @Override
     public void copy(IValue value) throws InterpreterException
     {
-        scalarValue = null;
-        arrayValue = null;
-        fields = new HashMap<>();
+        scalarValue.copy(value);
 
-        scalarValue = value.getScalarValue();
+        arrayValue = null;
         if (value.isArray())
         {
-            arrayValue = new CommaSeparatedList<>();
-            for (int i = 0; i < value.getArraySize(); i++)
-            {
-                final Value newValue = new Value();
-                newValue.copy(value.getArrayElement(i));
-                arrayValue.add(newValue);
-            }
+            arrayValue = new ArrayValue();
+            arrayValue.copy(value);
         }
 
-        for (final String fieldName : value.getFieldNames())
-        {
-            final Value newValue = new Value();
-            newValue.copy(value.getField(fieldName));
-            fields.put(fieldName, newValue);
-        }
+        associativeValue.copy(value);
 
         assert this.equals(value);
         assert this.hashCode() == value.hashCode();
@@ -124,15 +105,9 @@ public class Value implements IValue
     public int hashCode()
     {
         final HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(scalarValue);
-        if (arrayValue != null)
-            arrayValue.forEach(element -> builder.append(element.hashCode()));
-
-        for (final Map.Entry<String, IValue> fieldElement : fields.entrySet())
-        {
-            builder.append(fieldElement.getKey());
-            builder.append(fieldElement.getValue().hashCode());
-        }
+        if (isScalar()) builder.append(scalarValue.hashCode());
+        if (isArray()) builder.append(arrayValue.hashCode());
+        builder.append(associativeValue.hashCode());
 
         return builder.hashCode();
     }
@@ -140,54 +115,16 @@ public class Value implements IValue
     @Override
     public boolean equals(Object other)
     {
-        try
-        {
-            if (other == null) return false;
-            if (!other.getClass().equals(this.getClass())) return false;
-            final IValue otherValue = (IValue) other;
-            if (!(isArray() == otherValue.isArray())) return false;
-            if (!(isScalar() == otherValue.isScalar())) return false;
+        if (other == null) return false;
+        if (!other.getClass().equals(this.getClass())) return false;
+        final IValue otherValue = (IValue) other;
+        if (!(isArray() == otherValue.isArray())) return false;
+        if (!(isScalar() == otherValue.isScalar())) return false;
+        if (isScalar() && !scalarValue.equals(otherValue)) return false;
+        if (isArray() && !arrayValue.equals(otherValue)) return false;
+        if (!associativeValue.equals(associativeValue)) return false;
 
-            if (scalarValue == null)
-            {
-                if (otherValue.getScalarValue() != null)
-                    return false;
-            }
-            else
-            {
-                if (!scalarValue.equals(otherValue.getScalarValue()))
-                    return false;
-            }
-
-            if (isArray())
-            {
-                if (arrayValue.size() != otherValue.getArraySize())
-                    return false;
-
-                for (int i = 0; i < arrayValue.size(); i++)
-                {
-                    if (!arrayValue.get(i).equals(otherValue.getArrayElement(i)))
-                        return false;
-                }
-            }
-
-            final String[] otherFields = otherValue.getFieldNames();
-            if (fields.size() != otherFields.length) return false;
-            for (final String fieldName : otherFields)
-            {
-                if (!fields.containsKey(fieldName))
-                    return false;
-
-                if (!fields.get(fieldName).equals(otherValue.getField(fieldName)))
-                    return false;
-            }
-
-            return true;
-        }
-        catch (InterpreterException e)
-        {
-            throw new RuntimeException(e);
-        }
+        return true;
     }
 
     @Override
@@ -196,42 +133,21 @@ public class Value implements IValue
         final StringBuilder builder = new StringBuilder();
         if (isScalar())
         {
-            if (scalarValue == null)
-            {
-                builder.append("null");
-            }
-            else
-            {
-                builder.append(scalarValue.toString());
-            }
+            builder.append(scalarValue.toString());
         }
         else
         {
-            builder.append("[");
             builder.append(arrayValue.toString());
-            builder.append("]");
         }
 
-        if (fields.size() > 0)
-        {
-            builder.append(" {");
-            for (final Map.Entry<String, IValue> fieldElement : fields.entrySet())
-            {
-                builder.append(fieldElement.getKey());
-                builder.append(" = ");
-                builder.append(fieldElement.getValue().toString());
-                builder.append("; ");
-            }
-            builder.append("}");
-        }
-
+        builder.append(associativeValue.toString());
         return builder.toString();
     }
 
     @Override
     public void convertToArray()
     {
-        arrayValue = new CommaSeparatedList<>();
+        arrayValue = new ArrayValue();
     }
 
     @Override
@@ -243,6 +159,25 @@ public class Value implements IValue
     @Override
     public void addArrayElement(IValue element)
     {
-        arrayValue.add(element);
+        arrayValue.addArrayElement(element);
+    }
+
+    @Override
+    public Object getScalarValue()
+    {
+        return scalarValue.getScalarValue();
+    }
+
+    @Override
+    public void setScalarValue(Object value)
+    {
+        scalarValue.setScalarValue(value);
+    }
+
+    @Override
+    public void copy(IScalarValue other)
+    {
+        convertToScalar();
+        scalarValue.copy(other);
     }
 }
