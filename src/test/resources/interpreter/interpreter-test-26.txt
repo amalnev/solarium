@@ -1,0 +1,9 @@
+global a = 10;
+
+function f()
+{
+    a = 20;
+}
+
+f();
+return a;

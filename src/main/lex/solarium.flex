@@ -58,6 +58,7 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
     "function" 		{ return Parser.FUNCTION; }
     "true"          { return Parser.TRUE; }
     "false"         { return Parser.FALSE; }
+    "global"        { return Parser.GLOBAL; }
     {Identifier} 	{ yyparser.yylval = new ParserVal(yytext()); return Parser.IDENTIFIER;}
     ";"    			{ return Parser.SEMICOLON; }
     ":"    			{ return Parser.COLON; }

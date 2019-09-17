@@ -16,7 +16,7 @@ import ru.amalnev.solarium.language.utils.*;
 %token LT GT EQ DOT NULL IF ELSE WHILE DO FOR
 %token NUMERIC_LITERAL STRING_LITERAL TRUE FALSE
 %token OPEN_CURLY_BRACKET CLOSE_CURLY_BRACKET
-%token COLON CONTINUE BREAK RETURN FUNCTION
+%token COLON CONTINUE BREAK RETURN FUNCTION GLOBAL
 
 %start program
 
@@ -416,6 +416,12 @@ assignment_expression
 	IExpression leftOperand = (IExpression) $1.obj;
 	IExpression rightOperand = (IExpression) $3.obj;
 	AssignmentExpression expr = new AssignmentExpression(leftOperand, rightOperand);
+	$$ = new ParserVal(expr);
+ }
+ | GLOBAL IDENTIFIER EQ assignment_expression {
+	IExpression leftOperand = new GlobalVariableExpression($2.sval);
+	IExpression rightOperand = (IExpression) $4.obj;
+	IExpression expr = new AssignmentExpression(leftOperand, rightOperand);
 	$$ = new ParserVal(expr);
  }
  ;

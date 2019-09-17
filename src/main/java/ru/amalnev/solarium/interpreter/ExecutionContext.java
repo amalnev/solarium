@@ -2,8 +2,10 @@ package ru.amalnev.solarium.interpreter;
 
 import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.interpreter.errors.RedefinitionException;
+import ru.amalnev.solarium.interpreter.errors.VariableNotDefinedException;
 import ru.amalnev.solarium.interpreter.memory.IValue;
 import ru.amalnev.solarium.interpreter.memory.IVariableScope;
+import ru.amalnev.solarium.interpreter.memory.VariableScope;
 import ru.amalnev.solarium.interpreter.stack.CallStack;
 import ru.amalnev.solarium.interpreter.stack.ICallStack;
 import ru.amalnev.solarium.interpreter.stack.IStackFrame;
@@ -15,6 +17,8 @@ public class ExecutionContext implements ICallStack, IVariableScope, IFunctionRe
     private final FunctionRepository functionRepository;
 
     private final CallStack callStack;
+
+    private final VariableScope globalVariableScope = new VariableScope();
 
     public ExecutionContext()
     {
@@ -89,9 +93,21 @@ public class ExecutionContext implements ICallStack, IVariableScope, IFunctionRe
         return callStack.defineVariable(name);
     }
 
+    public IValue defineGlobalVariable(String name)
+    {
+        return globalVariableScope.defineVariable(name);
+    }
+
     @Override
     public IValue findVariable(String name) throws InterpreterException
     {
-        return callStack.findVariable(name);
+        try
+        {
+            return callStack.findVariable(name);
+        }
+        catch (VariableNotDefinedException e)
+        {
+            return globalVariableScope.findVariable(name);
+        }
     }
 }
