@@ -1,5 +1,12 @@
 package ru.amalnev.solarium.interpreter;
 
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.errors.RedefinitionException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
+import ru.amalnev.solarium.interpreter.memory.IVariableScope;
+import ru.amalnev.solarium.interpreter.stack.CallStack;
+import ru.amalnev.solarium.interpreter.stack.ICallStack;
+import ru.amalnev.solarium.interpreter.stack.IStackFrame;
 import ru.amalnev.solarium.language.statements.CompoundStatement;
 import ru.amalnev.solarium.language.statements.FunctionDefinition;
 
@@ -16,71 +23,32 @@ public class ExecutionContext implements ICallStack, IVariableScope, IFunctionRe
         callStack.setFunctionRepository(functionRepository);
     }
 
-    public CompoundStatement enterFunction(final String functionName, Object... args)
+    @Override
+    public CompoundStatement enterFunction(final String functionName, IValue... args) throws InterpreterException
     {
         return callStack.enterFunction(functionName, args);
     }
 
-    public Object exitFunction()
+    @Override
+    public IValue exitFunction() throws InterpreterException
     {
         return callStack.exitFunction();
     }
 
-    public void setReturnValue(final Object value)
+    @Override
+    public void setReturnValue(final IValue value)
     {
         callStack.setReturnValue(value);
     }
 
     @Override
-    public void defineScalar(String name)
+    public IValue getReturnValue() throws InterpreterException
     {
-        callStack.defineScalar(name);
+        throw new InterpreterException();
     }
 
     @Override
-    public void defineArray(String name)
-    {
-        callStack.defineArray(name);
-    }
-
-    @Override
-    public Object getValue(String name)
-    {
-        return callStack.getValue(name);
-    }
-
-    @Override
-    public Object getValue(String name, Integer index)
-    {
-        return callStack.getValue(name, index);
-    }
-
-    @Override
-    public <T> T getValue(String name, Class<T> valueClass)
-    {
-        return callStack.getValue(name, valueClass);
-    }
-
-    @Override
-    public <T> T getValue(String name, Integer index, Class<T> valueClass)
-    {
-        return callStack.getValue(name, index, valueClass);
-    }
-
-    @Override
-    public void setValue(String name, Object value)
-    {
-        callStack.setValue(name, value);
-    }
-
-    @Override
-    public void setValue(String name, Integer index, Object value)
-    {
-        callStack.setValue(name, index, value);
-    }
-
-    @Override
-    public void defineFunction(FunctionDefinition functionDefinition)
+    public void defineFunction(FunctionDefinition functionDefinition) throws RedefinitionException
     {
         functionRepository.defineFunction(functionDefinition);
     }
@@ -101,5 +69,29 @@ public class ExecutionContext implements ICallStack, IVariableScope, IFunctionRe
     public void exitCurrentScope()
     {
         callStack.exitCurrentScope();
+    }
+
+    @Override
+    public String getFunctionName() throws InterpreterException
+    {
+        throw new InterpreterException();
+    }
+
+    @Override
+    public void setFunctionName(String functionName) throws InterpreterException
+    {
+        throw new InterpreterException();
+    }
+
+    @Override
+    public IValue defineVariable(String name)
+    {
+        return callStack.defineVariable(name);
+    }
+
+    @Override
+    public IValue findVariable(String name) throws InterpreterException
+    {
+        return callStack.findVariable(name);
     }
 }

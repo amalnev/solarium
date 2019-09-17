@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
-import ru.amalnev.solarium.interpreter.RValue;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
 import ru.amalnev.solarium.language.operators.IBinaryOperator;
 
 @Getter
@@ -19,12 +20,12 @@ public class BinaryOperationExpression implements IExpression
     private IExpression rightOperand;
 
     @Override
-    public RValue evaluate(ExecutionContext context)
+    public IValue evaluate(ExecutionContext context) throws InterpreterException
     {
-        final Object leftValue = leftOperand.evaluate(context).getValue();
-        final Object rightValue = rightOperand.evaluate(context).getValue();
-
-        return new RValue(operator.operate(leftValue, rightValue));
+        /*final Value value = new Value();
+        value.copy(operator.operate(leftOperand.evaluate(context), rightOperand.evaluate(context)));
+        return value;*/
+        return operator.operate(leftOperand.evaluate(context), rightOperand.evaluate(context));
     }
 
     @Override

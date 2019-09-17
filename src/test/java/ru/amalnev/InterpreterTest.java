@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import ru.amalnev.solarium.interpreter.Interpreter;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.ParserException;
 
 import java.io.BufferedReader;
@@ -44,12 +45,18 @@ public class InterpreterTest
                 {"/interpreter/interpreter-test-15.txt", false},
                 {"/interpreter/interpreter-test-16.txt", 10},
                 {"/interpreter/interpreter-test-17.txt", null},
-                {"/interpreter/interpreter-test-18.txt", 130}
+                {"/interpreter/interpreter-test-18.txt", "value1"},
+                {"/interpreter/interpreter-test-19.txt", 70},
+                {"/interpreter/interpreter-test-20.txt", 50},
+                {"/interpreter/interpreter-test-21.txt", 20},
+                {"/interpreter/interpreter-test-22.txt", 80},
+                {"/interpreter/interpreter-test-23.txt", 10},
+                {"/interpreter/interpreter-test-24.txt", true}
         });
     }
 
     @Test
-    public void interpreterTest() throws IOException, ParserException
+    public void interpreterTest() throws IOException, ParserException, InterpreterException
     {
         final InputStream inputStream = getClass().getResourceAsStream(fileName);
         final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));

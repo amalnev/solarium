@@ -6,6 +6,7 @@ import lombok.Getter;
 import ru.amalnev.solarium.language.operators.*;
 import ru.amalnev.solarium.language.expressions.*;
 import ru.amalnev.solarium.language.statements.*;
+import ru.amalnev.solarium.language.utils.*;
 %}
 
 %token SEMICOLON IDENTIFIER LE_OP GE_OP EQ_OP NE_OP AND_OP OR_OP
@@ -90,7 +91,7 @@ function_definition
 
 identifier_list
  : IDENTIFIER {
- 	List<String> identifierList = new ArrayList<>();
+ 	List<String> identifierList = new CommaSeparatedList<>();
  	identifierList.add($1.sval);
  	$$ = new ParserVal(identifierList);
  }
@@ -225,6 +226,12 @@ postfix_expression
  	expr.setFunctionCallArguments(arguments);
  	$$ = new ParserVal(expr);
  }
+ | postfix_expression DOT IDENTIFIER {
+	IExpression sourceExpression = (IExpression) $1.obj;
+	String fieldName = $3.sval;
+	IExpression expr = new FieldAccessExpression(sourceExpression, fieldName);
+	$$ = new ParserVal(expr);
+ }
  | postfix_expression DOT IDENTIFIER OPEN_BRACKET argument_expression_list CLOSE_BRACKET {
 	List<IExpression> arguments = (List<IExpression>) $5.obj;
 	IExpression implicitArgument = (IExpression) $1.obj;
@@ -235,7 +242,7 @@ postfix_expression
 	$$ = new ParserVal(expr);
  }
  | postfix_expression DOT IDENTIFIER OPEN_BRACKET CLOSE_BRACKET {
- 	List<IExpression> arguments = new ArrayList<>();
+ 	List<IExpression> arguments = new CommaSeparatedList<>();
 	IExpression implicitArgument = (IExpression) $1.obj;
 	arguments.add(0, implicitArgument);
 	FunctionCallExpression expr = new FunctionCallExpression();
@@ -293,7 +300,7 @@ array_literal
 
 argument_expression_list
  : assignment_expression {
- 	List<IExpression> arguments = new ArrayList<>();
+ 	List<IExpression> arguments = new CommaSeparatedList<>();
  	arguments.add((IExpression)$1.obj);
  	$$ = new ParserVal(arguments);
  }

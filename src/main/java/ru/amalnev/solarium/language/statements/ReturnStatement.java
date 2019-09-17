@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.expressions.IExpression;
 
 @NoArgsConstructor
@@ -14,12 +15,11 @@ public class ReturnStatement implements IStatement
     private IExpression what;
 
     @Override
-    public ControlFlowInfluence execute(final ExecutionContext context)
+    public ControlFlowInfluence execute(final ExecutionContext context) throws InterpreterException
     {
         if (what != null)
         {
-            final Object returnValue = what.evaluate(context).getValue();
-            context.setReturnValue(returnValue);
+            context.setReturnValue(what.evaluate(context));
         }
 
         return ControlFlowInfluence.EXIT_CURRENT_FUNCTION;

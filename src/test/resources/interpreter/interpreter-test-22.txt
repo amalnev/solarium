@@ -1,0 +1,6 @@
+a = [10, 20, 30, 40];
+a[2].someField = [50, 60, 70];
+a[2].someField[1].value1 = [80, 90];
+b = a;
+a[2].someField[1].value1[0] = 100;
+return b[2].someField[1].value1[0];

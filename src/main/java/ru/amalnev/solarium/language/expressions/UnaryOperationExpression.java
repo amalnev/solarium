@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
-import ru.amalnev.solarium.interpreter.RValue;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
 import ru.amalnev.solarium.language.operators.IUnaryOperator;
 
 @Getter
@@ -17,9 +18,10 @@ public class UnaryOperationExpression implements IExpression
     private IExpression operand;
 
     @Override
-    public RValue evaluate(ExecutionContext context)
+    public IValue evaluate(ExecutionContext context) throws InterpreterException
     {
-        return new RValue(operator.operate(operand.evaluate(context).getValue()));
+        //return new Value(operator.operate(operand.evaluate(context)));
+        return operator.operate(operand.evaluate(context));
     }
 
     @Override

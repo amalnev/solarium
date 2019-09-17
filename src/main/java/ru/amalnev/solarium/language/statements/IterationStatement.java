@@ -1,10 +1,9 @@
 package ru.amalnev.solarium.language.statements;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.expressions.IExpression;
 
 @Getter
@@ -16,12 +15,12 @@ public abstract class IterationStatement implements IStatement
     private IStatement body;
 
     @Override
-    public ControlFlowInfluence execute(ExecutionContext context)
+    public ControlFlowInfluence execute(ExecutionContext context) throws InterpreterException
     {
         context.enterEnclosedScope();
         try
         {
-            while ((Boolean) condition.evaluate(context).getValue())
+            while ((Boolean) condition.evaluate(context).getScalarValue())
             {
                 final ControlFlowInfluence result = body.execute(context);
                 if (result == ControlFlowInfluence.EXIT_CURRENT_ITERATION) continue;

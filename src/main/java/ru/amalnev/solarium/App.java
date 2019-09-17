@@ -1,22 +1,19 @@
 package ru.amalnev.solarium;
 
 import ru.amalnev.solarium.interpreter.Interpreter;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.ParserException;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
+//TODO: Json integration
+//TODO: Parser & interpreter error reporting
+//TODO: Lambda expressions and closures
+//TODO: Make sure build works on Windows and MacOS
 public class App
 {
-    public static void main(String[] args) throws IOException, ParserException
+    public static void main(String[] args) throws IOException, ParserException, InterpreterException
     {
-        Path sourceFilePath = Paths.get(args[0]);
-        if(!sourceFilePath.isAbsolute())
-        {
-            sourceFilePath = sourceFilePath.toAbsolutePath();
-        }
-
-        (new Interpreter()).runFromFile(sourceFilePath.toString());
+        (new Interpreter()).runFromFile(args[0]);
     }
 }

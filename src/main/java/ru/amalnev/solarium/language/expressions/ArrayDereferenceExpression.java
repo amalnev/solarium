@@ -2,9 +2,10 @@ package ru.amalnev.solarium.language.expressions;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.amalnev.solarium.interpreter.*;
-
-import java.util.List;
+import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.errors.TypeMismatchException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
 
 @Getter
 @Setter
@@ -15,21 +16,21 @@ public class ArrayDereferenceExpression implements IExpression
     private IExpression indexExpression;
 
     @Override
-    public IValue evaluate(ExecutionContext context)
+    public IValue evaluate(ExecutionContext context) throws InterpreterException
     {
         final IValue arrayExpressionValue = arrayExpression.evaluate(context);
         final IValue indexExpressionValue = indexExpression.evaluate(context);
 
-        if(arrayExpressionValue instanceof LValue)
+        try
         {
-            final LValue arrayExpressionLValue = (LValue) arrayExpressionValue;
-            return new LValue(arrayExpressionLValue.getVariableName(), (Integer) indexExpressionValue.getValue(), context);
+            final Integer index = (Integer) indexExpressionValue.getScalarValue();
+            return arrayExpressionValue.getArrayElement(index);
         }
-        else
+        catch (ClassCastException e)
         {
-            final List<Object> array = (List<Object>) arrayExpressionValue.getValue();
-            final Integer index = (Integer) indexExpressionValue.getValue();
-            return new RValue(array.get(index));
+            throw new TypeMismatchException(indexExpression.toString(),
+                                            "integer",
+                                            indexExpressionValue.getScalarValue().getClass().getSimpleName());
         }
     }
 }

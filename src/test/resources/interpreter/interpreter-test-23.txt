@@ -1,0 +1,8 @@
+function test_purity(a)
+{
+    a.someField = 100;
+}
+
+a.someField = 10;
+test_purity(a);
+return a.someField;

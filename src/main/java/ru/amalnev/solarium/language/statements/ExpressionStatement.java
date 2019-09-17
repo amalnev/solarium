@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.expressions.IExpression;
 
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class ExpressionStatement implements IStatement
     }
 
     @Override
-    public ControlFlowInfluence execute(final ExecutionContext context)
+    public ControlFlowInfluence execute(final ExecutionContext context) throws InterpreterException
     {
         expression.evaluate(context);
         return ControlFlowInfluence.NO_INFLUENCE;

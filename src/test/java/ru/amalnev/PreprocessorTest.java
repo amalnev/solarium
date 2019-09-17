@@ -44,19 +44,20 @@ public class PreprocessorTest
     @Test
     public void runTest() throws IOException
     {
-        //createFile(Paths.get("preprocessor-test-1.txt"), readResourceFile("preprocessor-test-1.txt"));
+        createFile(Paths.get("preprocessor-test-1.txt"), readResourceFile("/preprocessor/preprocessor-test-1.txt"));
         createFile(Paths.get("preprocessor-test-2.txt"), readResourceFile("/preprocessor/preprocessor-test-2.txt"));
         Files.createDirectory(Paths.get("test-3"));
         createFile(Paths.get("test-3/preprocessor-test-3.txt"), readResourceFile("/preprocessor/preprocessor-test-3.txt"));
-        createFile(Paths.get("preprocessor-test-4.txt"), readResourceFile("/preprocessor/preprocessor-test-4.txt"));
+        createFile(Paths.get("test-3/preprocessor-test-4.txt"), readResourceFile("/preprocessor/preprocessor-test-4.txt"));
 
-        Preprocessor preprocessor = new Preprocessor();
-        String result = preprocessor.process(readResourceFile("/preprocessor/preprocessor-test-1.txt"));
+        Preprocessor preprocessor = new Preprocessor(Paths.get("").toAbsolutePath().toString());
+        String result = preprocessor.processFile("preprocessor-test-1.txt");
 
+        Files.deleteIfExists(Paths.get("preprocessor-test-1.txt"));
         Files.deleteIfExists(Paths.get("preprocessor-test-2.txt"));
         Files.deleteIfExists(Paths.get("test-3/preprocessor-test-3.txt"));
+        Files.deleteIfExists(Paths.get("test-3/preprocessor-test-4.txt"));
         Files.deleteIfExists(Paths.get("test-3"));
-        Files.deleteIfExists(Paths.get("preprocessor-test-4.txt"));
 
         result = result.replace("\n", "");
         Assert.assertEquals(result, "123456789");

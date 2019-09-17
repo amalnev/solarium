@@ -1,10 +1,15 @@
 package ru.amalnev.solarium.language.operators;
 
-public class Not implements IUnaryOperator<Boolean, Boolean>
+public class Not extends UnaryOperatorImpl<Boolean, Boolean>
 {
-    @Override
-    public Boolean operate(Boolean operand)
+    public Not()
     {
-        return !operand;
+        super(Boolean.class, Boolean.class);
+    }
+
+    @Override
+    protected Boolean calculateResult(Boolean operandValue)
+    {
+        return !operandValue;
     }
 }

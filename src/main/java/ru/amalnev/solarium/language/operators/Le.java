@@ -1,16 +1,21 @@
 package ru.amalnev.solarium.language.operators;
 
-public class Le implements IBinaryOperator<Integer, Boolean>
+public class Le extends BinaryOperatorImpl<Integer, Boolean>
 {
-    @Override
-    public Boolean operate(Integer leftOperand, Integer rightOperand)
+    public Le()
     {
-        return leftOperand <= rightOperand;
+        super(Integer.class, Boolean.class);
     }
 
     @Override
     public String toString()
     {
         return "<=";
+    }
+
+    @Override
+    protected Boolean calculateResult(Integer leftOperandValue, Integer rightOperandValue)
+    {
+        return leftOperandValue <= rightOperandValue;
     }
 }

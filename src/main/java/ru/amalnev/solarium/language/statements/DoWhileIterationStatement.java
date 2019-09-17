@@ -1,11 +1,12 @@
 package ru.amalnev.solarium.language.statements;
 
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 
 public class DoWhileIterationStatement extends IterationStatement
 {
     @Override
-    public ControlFlowInfluence execute(ExecutionContext context)
+    public ControlFlowInfluence execute(ExecutionContext context) throws InterpreterException
     {
         context.enterEnclosedScope();
         try
@@ -17,7 +18,7 @@ public class DoWhileIterationStatement extends IterationStatement
                 if (result == ControlFlowInfluence.EXIT_CURRENT_BLOCK) break;
                 if (result == ControlFlowInfluence.EXIT_CURRENT_FUNCTION) return result;
             }
-            while ((Boolean)getCondition().evaluate(context).getValue());
+            while ((Boolean) getCondition().evaluate(context).getScalarValue());
         }
         finally
         {

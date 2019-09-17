@@ -1,6 +1,7 @@
 package ru.amalnev.solarium.language.statements;
 
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 
 public interface IStatement
 {
@@ -12,5 +13,5 @@ public interface IStatement
         EXIT_CURRENT_ITERATION
     }
 
-    ControlFlowInfluence execute(ExecutionContext context);
+    ControlFlowInfluence execute(ExecutionContext context) throws InterpreterException;
 }

@@ -1,16 +1,21 @@
 package ru.amalnev.solarium.language.operators;
 
-public class Minus implements IBinaryOperator<Integer, Integer>
+public class Minus extends BinaryOperatorImpl<Integer, Integer>
 {
-    @Override
-    public Integer operate(Integer leftOperand, Integer rightOperand)
+    public Minus()
     {
-        return leftOperand - rightOperand;
+        super(Integer.class, Integer.class);
     }
 
     @Override
     public String toString()
     {
         return "-";
+    }
+
+    @Override
+    protected Integer calculateResult(Integer leftOperandValue, Integer rightOperandValue)
+    {
+        return leftOperandValue - rightOperandValue;
     }
 }

@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
-import ru.amalnev.solarium.interpreter.LValue;
-import ru.amalnev.solarium.interpreter.RValue;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.errors.VariableNotDefinedException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
 
 @Getter
 @Setter
@@ -20,8 +21,15 @@ public class VariableExpression implements IExpression
     }
 
     @Override
-    public LValue evaluate(final ExecutionContext context)
+    public IValue evaluate(final ExecutionContext context) throws InterpreterException
     {
-        return new LValue(name, context);
+        try
+        {
+            return context.findVariable(name);
+        }
+        catch (VariableNotDefinedException e)
+        {
+            return context.defineVariable(name);
+        }
     }
 }

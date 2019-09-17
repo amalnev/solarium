@@ -1,16 +1,21 @@
 package ru.amalnev.solarium.language.operators;
 
-public class Plus implements IBinaryOperator<Integer, Integer>
+public class Plus extends BinaryOperatorImpl<Integer, Integer>
 {
-    @Override
-    public Integer operate(Integer leftOperand, Integer rightOperand)
+    public Plus()
     {
-        return leftOperand + rightOperand;
+        super(Integer.class, Integer.class);
     }
 
     @Override
     public String toString()
     {
         return "+";
+    }
+
+    @Override
+    protected Integer calculateResult(Integer leftOperandValue, Integer rightOperandValue)
+    {
+        return leftOperandValue + rightOperandValue;
     }
 }

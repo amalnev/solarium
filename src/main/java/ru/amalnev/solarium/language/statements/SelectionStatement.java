@@ -3,6 +3,7 @@ package ru.amalnev.solarium.language.statements;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.expressions.IExpression;
 
 /**
@@ -29,9 +30,9 @@ public class SelectionStatement implements IStatement
     }
 
     @Override
-    public ControlFlowInfluence execute(final ExecutionContext context)
+    public ControlFlowInfluence execute(final ExecutionContext context) throws InterpreterException
     {
-        final Boolean conditionValue = (Boolean) condition.evaluate(context).getValue();
+        final Boolean conditionValue = (Boolean) condition.evaluate(context).getScalarValue();
         final IStatement statementToExecute = conditionValue ? positiveStatement : negativeStatement;
         if (statementToExecute != null) return statementToExecute.execute(context);
         return ControlFlowInfluence.NO_INFLUENCE;

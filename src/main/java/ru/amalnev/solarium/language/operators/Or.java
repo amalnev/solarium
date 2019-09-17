@@ -1,16 +1,21 @@
 package ru.amalnev.solarium.language.operators;
 
-public class Or implements IBinaryOperator<Boolean, Boolean>
+public class Or extends BinaryOperatorImpl<Boolean, Boolean>
 {
-    @Override
-    public Boolean operate(Boolean leftOperand, Boolean rightOperand)
+    public Or()
     {
-        return leftOperand || rightOperand;
+        super(Boolean.class, Boolean.class);
     }
 
     @Override
     public String toString()
     {
-        return "|";
+        return "||";
+    }
+
+    @Override
+    protected Boolean calculateResult(Boolean leftOperandValue, Boolean rightOperandValue)
+    {
+        return leftOperandValue || rightOperandValue;
     }
 }

@@ -1,18 +1,18 @@
 package ru.amalnev.solarium.interpreter;
 
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
 import ru.amalnev.solarium.language.Parser;
 import ru.amalnev.solarium.language.ParserException;
 import ru.amalnev.solarium.language.expressions.FunctionCallExpression;
 import ru.amalnev.solarium.language.statements.FunctionDefinition;
 import ru.amalnev.solarium.library.Library;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class Interpreter
 {
@@ -22,13 +22,16 @@ public class Interpreter
 
     private final Parser parser;
 
-    public Interpreter()
+    public Interpreter() throws InterpreterException
     {
         parser = new Parser();
         executionContext = new ExecutionContext();
         library = new Library();
 
-        library.getNativeFunctions().forEach(executionContext::defineFunction);
+        for (FunctionDefinition functionDefinition : library.getNativeFunctions())
+        {
+            executionContext.defineFunction(functionDefinition);
+        }
     }
 
     private static String makeRandomIdentifier()
@@ -38,15 +41,15 @@ public class Interpreter
         int targetStringLength = 10;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit + (int)
-                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+        for (int i = 0; i < targetStringLength; i++)
+        {
+            int randomLimitedInt = leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));
             buffer.append((char) randomLimitedInt);
         }
         return buffer.toString();
     }
 
-    public Object runFromString(final String sourceCode) throws IOException, ParserException
+    public Object runFromString(final String sourceCode) throws IOException, ParserException, InterpreterException
     {
         final FunctionDefinition entryPoint = parser.parse(new StringReader(sourceCode));
         entryPoint.setFunctionName(makeRandomIdentifier());
@@ -54,21 +57,17 @@ public class Interpreter
 
         final FunctionCallExpression entryPointCall = new FunctionCallExpression();
         entryPointCall.setFunctionName(entryPoint.getFunctionName());
-        return entryPointCall.evaluate(executionContext).getValue();
+        final IValue result = entryPointCall.evaluate(executionContext);
+        if (result == null) return null;
+        return result.getScalarValue();
     }
 
-    public Object runFromFile(final String sourceFilePath) throws IOException, ParserException
+    public Object runFromFile(final String sourceFilePath) throws IOException, ParserException, InterpreterException
     {
         final Path sourcePath = Paths.get(sourceFilePath);
-        if(!sourcePath.isAbsolute()) sourcePath.toAbsolutePath();
-        final StringBuilder sourceCodeBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines(sourcePath, StandardCharsets.UTF_8))
-        {
-            stream.forEach(s -> sourceCodeBuilder.append(s).append("\n"));
-        }
+        if (!sourcePath.isAbsolute()) sourcePath.toAbsolutePath();
 
-        final String sourceCode = sourceCodeBuilder.toString();
         final Preprocessor preprocessor = new Preprocessor(sourcePath.getParent().toString());
-        return runFromString(preprocessor.process(sourceCode));
+        return runFromString(preprocessor.processFile(sourcePath.toString()));
     }
 }

@@ -1,6 +1,9 @@
 package ru.amalnev.solarium.language.operators;
 
-public interface IUnaryOperator<T, R>
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
+
+public interface IUnaryOperator
 {
-    R operate(T operand);
+    IValue operate(IValue operand) throws InterpreterException;
 }

@@ -1,16 +1,21 @@
 package ru.amalnev.solarium.language.operators;
 
-public class UnaryMinus implements IUnaryOperator<Integer, Integer>
+public class UnaryMinus extends UnaryOperatorImpl<Integer, Integer>
 {
-    @Override
-    public Integer operate(Integer operand)
+    public UnaryMinus()
     {
-        return -1 * operand;
+        super(Integer.class, Integer.class);
     }
 
     @Override
     public String toString()
     {
         return "-";
+    }
+
+    @Override
+    protected Integer calculateResult(Integer operandValue)
+    {
+        return -1 * operandValue;
     }
 }

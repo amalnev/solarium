@@ -1,0 +1,10 @@
+function object_producer()
+{
+    a = [10, 20, 30];
+    a[0].someField = [40, 50, 60];
+    return a;
+}
+
+b = object_producer()[0].someField[1];
+print(b);
+return b;

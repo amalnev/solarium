@@ -3,8 +3,9 @@ package ru.amalnev.solarium.language.statements;
 import lombok.Getter;
 import lombok.Setter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.RedefinitionException;
+import ru.amalnev.solarium.language.utils.CommaSeparatedList;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ public class FunctionDefinition implements IStatement
 {
     private String functionName;
 
-    private List<String> argumentNames = new LinkedList<>();
+    private List<String> argumentNames = new CommaSeparatedList<>();
 
     private CompoundStatement body;
 
@@ -25,14 +26,7 @@ public class FunctionDefinition implements IStatement
             builder.append("function ");
             builder.append(functionName);
             builder.append("(");
-            for (int i = 0; i < argumentNames.size(); i++)
-            {
-                builder.append(argumentNames.get(i));
-                if (i != argumentNames.size() - 1)
-                {
-                    builder.append(", ");
-                }
-            }
+            builder.append(argumentNames.toString());
 
             builder.append(")\n{\n");
         }
@@ -48,7 +42,7 @@ public class FunctionDefinition implements IStatement
     }
 
     @Override
-    public ControlFlowInfluence execute(final ExecutionContext context)
+    public ControlFlowInfluence execute(final ExecutionContext context) throws RedefinitionException
     {
         context.defineFunction(this);
         return ControlFlowInfluence.NO_INFLUENCE;

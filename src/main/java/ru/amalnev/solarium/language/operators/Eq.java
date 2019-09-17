@@ -1,17 +1,19 @@
 package ru.amalnev.solarium.language.operators;
 
-public class Eq implements IBinaryOperator<Object, Boolean>
-{
-    @Override
-    public Boolean operate(Object leftOperand, Object rightOperand)
-    {
-        if (leftOperand != null) return leftOperand.equals(rightOperand);
-        return false;
-    }
+import ru.amalnev.solarium.interpreter.memory.IValue;
+import ru.amalnev.solarium.interpreter.memory.Value;
 
+public class Eq implements IBinaryOperator
+{
     @Override
     public String toString()
     {
         return "==";
+    }
+
+    @Override
+    public IValue operate(IValue leftOperand, IValue rightOperand)
+    {
+        return new Value(leftOperand.equals(rightOperand));
     }
 }

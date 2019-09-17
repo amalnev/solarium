@@ -12,7 +12,7 @@ public class Library
 
     public Library()
     {
-        final Reflections reflections = new Reflections("ru.amalnev.solarium");
+        final Reflections reflections = new Reflections(this.getClass().getPackage().getName());
         reflections.getSubTypesOf(AbstractNativeFunction.class).forEach(nativeFunctionClass -> {
             if (nativeFunctionClass.isAnnotationPresent(FunctionName.class))
             {

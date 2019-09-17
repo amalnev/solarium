@@ -1,5 +1,6 @@
 package ru.amalnev.solarium.interpreter;
 
+import ru.amalnev.solarium.interpreter.errors.RedefinitionException;
 import ru.amalnev.solarium.language.statements.FunctionDefinition;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ public class FunctionRepository implements IFunctionRepository
     private Map<String, FunctionDefinition> functionDefinitions = new HashMap<>();
 
     @Override
-    public void defineFunction(final FunctionDefinition functionDefinition)
+    public void defineFunction(final FunctionDefinition functionDefinition) throws RedefinitionException
     {
         final String functionName = functionDefinition.getFunctionName();
         if (functionDefinitions.get(functionName) != null)

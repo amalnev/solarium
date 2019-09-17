@@ -2,6 +2,7 @@ package ru.amalnev.solarium.language.statements;
 
 import lombok.Getter;
 import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class CompoundStatement implements IStatement
     private List<IStatement> statements = new ArrayList<>();
 
     @Override
-    public ControlFlowInfluence execute(final ExecutionContext context)
+    public ControlFlowInfluence execute(final ExecutionContext context) throws InterpreterException
     {
         context.enterEnclosedScope();
         try

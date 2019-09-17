@@ -3,7 +3,9 @@ package ru.amalnev.solarium.language.expressions;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ru.amalnev.solarium.interpreter.*;
+import ru.amalnev.solarium.interpreter.ExecutionContext;
+import ru.amalnev.solarium.interpreter.errors.InterpreterException;
+import ru.amalnev.solarium.interpreter.memory.IValue;
 
 @Getter
 @Setter
@@ -15,24 +17,12 @@ public class AssignmentExpression implements IExpression
     private IExpression rightOperand;
 
     @Override
-    public IValue evaluate(ExecutionContext context)
+    public IValue evaluate(ExecutionContext context) throws InterpreterException
     {
         final IValue leftOperandValue = leftOperand.evaluate(context);
-        if(! (leftOperandValue instanceof ILValue)) throw new LValueRequiredException(leftOperand.toString());
-        final Object rightOperandValue = rightOperand.evaluate(context).getValue();
-        final LValue leftOperandLValue = (LValue) leftOperandValue;
+        leftOperandValue.copy(rightOperand.evaluate(context));
 
-        try
-        {
-            leftOperandLValue.setValue(rightOperandValue);
-        }
-        catch (VariableNotDefinedException e)
-        {
-            context.defineScalar(leftOperandLValue.getVariableName());
-            leftOperandLValue.setValue(rightOperandValue);
-        }
-
-        return leftOperandLValue;
+        return leftOperandValue;
     }
 
     @Override

@@ -1,10 +1,5 @@
-a = 120;
+a = 10;
+a.someField = "value1";
+a.anotherField = "value2";
 
-function f()
-{
-    a = a + 10;
-}
-
-f();
-print(a);
-return a;
+return a.someField;
