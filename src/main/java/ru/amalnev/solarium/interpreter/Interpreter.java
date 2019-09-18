@@ -64,8 +64,8 @@ public class Interpreter
 
     public Object runFromFile(final String sourceFilePath) throws IOException, ParserException, InterpreterException
     {
-        final Path sourcePath = Paths.get(sourceFilePath);
-        if (!sourcePath.isAbsolute()) sourcePath.toAbsolutePath();
+        Path sourcePath = Paths.get(sourceFilePath);
+        if (!sourcePath.isAbsolute()) sourcePath = sourcePath.toAbsolutePath();
 
         final Preprocessor preprocessor = new Preprocessor(sourcePath.getParent().toString());
         return runFromString(preprocessor.processFile(sourcePath.toString()));
