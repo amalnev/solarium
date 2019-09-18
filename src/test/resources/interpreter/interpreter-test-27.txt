@@ -1,0 +1,12 @@
+global a = 10;
+
+function f(a)
+{
+    a = 20;
+    return a;
+}
+
+b = f(a);
+print(a);
+print(b);
+return a != b;

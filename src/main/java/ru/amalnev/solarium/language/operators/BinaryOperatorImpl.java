@@ -26,5 +26,5 @@ public abstract class BinaryOperatorImpl<T, R> extends BasicOperatorImpl<T, R> i
         return new Value(calculateResult(leftOperandValue, rightOperandValue));
     }
 
-    protected abstract R calculateResult(T leftOperandValue, T rightOperandValue);
+    protected abstract R calculateResult(T leftOperandValue, T rightOperandValue) throws TypeMismatchException;
 }
