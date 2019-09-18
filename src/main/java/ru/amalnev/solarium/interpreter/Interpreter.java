@@ -49,7 +49,7 @@ public class Interpreter
         return buffer.toString();
     }
 
-    public Object runFromString(final String sourceCode) throws IOException, ParserException, InterpreterException
+    public Object runFromString(String sourceCode) throws IOException, ParserException, InterpreterException
     {
         final FunctionDefinition entryPoint = parser.parse(new StringReader(sourceCode));
         entryPoint.setFunctionName(makeRandomIdentifier());

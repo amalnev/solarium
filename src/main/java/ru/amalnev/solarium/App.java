@@ -11,7 +11,7 @@ import java.io.IOException;
 //TODO: Lambda expressions and closures
 //TODO: Make sure build works on Windows and MacOS
 //TODO: preprocessor conditional directives (#ifdef, #ifndef)
-//TODO: string concatenation with "+"
+//TODO: standard library tests
 public class App
 {
     public static void main(String[] args) throws IOException, ParserException, InterpreterException

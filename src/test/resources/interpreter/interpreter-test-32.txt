@@ -1,0 +1,4 @@
+global NRI = "https://nri.oss.megafon.ru";
+
+
+
