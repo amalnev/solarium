@@ -27,7 +27,7 @@
             <properties>
                 <yacc.executable>yacc.exe</yacc.executable>
                 <lex.executable>jflex.bat</lex.executable>
-                <rm.executable>ERASE</rm.executable>
+                <rm.executable>clean.bat</rm.executable>
             </properties>
         </profile>
         <profile>
@@ -131,11 +131,12 @@
                         <configuration>
                             <workingDirectory>src/main/java/ru/amalnev/solarium/language</workingDirectory>
                             <environmentVariables>
-                                <JFLEX_HOME>${project.basedir}\jflex</JFLEX_HOME>
+                                <JFLEX_HOME>${project.basedir}/jflex</JFLEX_HOME>
                             </environmentVariables>
                             <executable>${project.basedir}/jflex/bin/${lex.executable}</executable>
                             <arguments>
-                                <argument>-d ${project.basedir}/src/main/java/ru/amalnev/solarium/language</argument>
+                                <argument>-d</argument>
+                                <argument>${project.basedir}/src/main/java/ru/amalnev/solarium/language</argument>
                                 <argument>${project.basedir}/src/main/lex/solarium.flex</argument>
                             </arguments>
                         </configuration>
