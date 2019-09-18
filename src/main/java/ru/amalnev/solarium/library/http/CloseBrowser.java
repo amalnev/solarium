@@ -7,7 +7,7 @@ import ru.amalnev.solarium.library.AbstractNativeFunction;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("close_browser")
+@FunctionName("closeBrowser")
 @FunctionArguments({"browser"})
 public class CloseBrowser extends AbstractNativeFunction
 {

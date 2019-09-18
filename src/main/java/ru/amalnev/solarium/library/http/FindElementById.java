@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("find_element_by_id")
+@FunctionName("findElementById")
 @FunctionArguments({"parent", "id"})
 public class FindElementById extends FindElement
 {

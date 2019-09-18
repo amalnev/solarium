@@ -7,7 +7,7 @@ import ru.amalnev.solarium.library.AbstractNativeFunction;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("send_keys")
+@FunctionName("sendKeys")
 @FunctionArguments({"element", "keys"})
 public class SendKeys extends AbstractNativeFunction
 {

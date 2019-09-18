@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("find_element_by_xpath")
+@FunctionName("findElementByXPath")
 @FunctionArguments({"parent", "xpath"})
 public class FindElementByXPath extends FindElement
 {

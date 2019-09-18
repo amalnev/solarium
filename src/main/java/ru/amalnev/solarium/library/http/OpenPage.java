@@ -7,7 +7,7 @@ import ru.amalnev.solarium.library.AbstractNativeFunction;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("open_page")
+@FunctionName("openPage")
 @FunctionArguments({"browser", "url"})
 public class OpenPage extends AbstractNativeFunction
 {

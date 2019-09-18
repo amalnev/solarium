@@ -7,15 +7,15 @@ import ru.amalnev.solarium.library.AbstractNativeFunction;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("get_attribute_value")
-@FunctionArguments({"element", "attribute_name"})
+@FunctionName("getAttribute")
+@FunctionArguments({"element", "attributeName"})
 public class GetAttribute extends AbstractNativeFunction
 {
     @Override
     public void call(ExecutionContext context) throws InterpreterException
     {
         final WebElement element = getScalarArgument(context, "element");
-        final String attributeName = getScalarArgument(context, "attribute_name");
+        final String attributeName = getScalarArgument(context, "attributeName");
         setReturnValue(context, element.getAttribute(attributeName));
     }
 }

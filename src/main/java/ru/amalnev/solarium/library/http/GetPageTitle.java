@@ -7,7 +7,7 @@ import ru.amalnev.solarium.library.AbstractNativeFunction;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-@FunctionName("get_current_page_title")
+@FunctionName("getPageTitle")
 @FunctionArguments({"browser"})
 public class GetPageTitle extends AbstractNativeFunction
 {
