@@ -8,7 +8,7 @@ public interface IValue extends IScalarValue, IArrayValue, IAssociativeValue
 
     boolean isArray();
 
-    void convertToArray();
+    IValue convertToArray();
 
     void convertToScalar();
 

@@ -1,0 +1,2 @@
+matches = grep("(([1-9]|1[0-2]):([0-5][0-9]))[ap]m", "11:59am");
+return matches[0][2];

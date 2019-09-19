@@ -9,9 +9,10 @@ import java.io.IOException;
 //TODO: Json integration
 //TODO: Parser & interpreter error reporting
 //TODO: Lambda expressions and closures
-//TODO: Make sure build works on Windows and MacOS
 //TODO: preprocessor conditional directives (#ifdef, #ifndef)
 //TODO: standard library tests
+//TODO: fix single line comments
+//TODO: interactive mode (?)
 public class App
 {
     public static void main(String[] args) throws IOException, ParserException, InterpreterException

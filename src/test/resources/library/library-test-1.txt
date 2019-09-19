@@ -1,0 +1,7 @@
+range = ipRange("192.168.0.0-10");
+for(address: range)
+{
+    print(address);
+}
+
+return range.size();

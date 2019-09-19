@@ -145,9 +145,10 @@ public class Value implements IValue
     }
 
     @Override
-    public void convertToArray()
+    public IValue convertToArray()
     {
         arrayValue = new ArrayValue();
+        return this;
     }
 
     @Override
