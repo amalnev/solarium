@@ -1,0 +1,3 @@
+text = "123";
+pattern = "[0-9]+";
+return text.matches(pattern);
