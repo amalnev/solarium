@@ -33,4 +33,10 @@ public class ArrayDereferenceExpression implements IExpression
                                             indexExpressionValue.getScalarValue().getClass().getSimpleName());
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return arrayExpression.toString() + "[" + indexExpression.toString() + "]";
+    }
 }

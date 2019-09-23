@@ -63,7 +63,9 @@ public class InterpreterTest
                 {"/interpreter/interpreter-test-33.txt", 30},
                 {"/library/library-test-1.txt", 11},
                 {"/library/library-test-2.txt", true},
-                {"/library/library-test-3.txt", "11"}
+                {"/library/library-test-3.txt", "11"},
+                {"/library/library-test-5.txt", true},
+                {"/library/library-test-6.txt", false}
 
         });
     }

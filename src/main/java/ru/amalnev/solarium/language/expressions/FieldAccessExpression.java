@@ -26,4 +26,10 @@ public class FieldAccessExpression implements IExpression
         final IValue source = sourceExpression.evaluate(context);
         return source.getField(fieldName);
     }
+
+    @Override
+    public String toString()
+    {
+        return sourceExpression.toString() + "." + fieldName;
+    }
 }

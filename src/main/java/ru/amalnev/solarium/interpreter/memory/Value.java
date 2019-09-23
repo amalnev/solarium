@@ -28,7 +28,8 @@ public class Value implements IValue
     @Override
     public IValue getArrayElement(int elementIndex) throws InterpreterException
     {
-        if (arrayValue == null) throw new ArrayValueRequiredException();
+        if (arrayValue == null)
+            throw new ArrayValueRequiredException();
         return arrayValue.getArrayElement(elementIndex);
     }
 
