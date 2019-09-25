@@ -34,6 +34,8 @@ public class Plus extends BinaryOperatorImpl<Object, Object>
         }
         else if (leftOperandValue.getClass().equals(String.class))
         { //string concatenation is requested
+            if (rightOperandValue == null)
+                return (String) leftOperandValue + "null";
             return (String) leftOperandValue + rightOperandValue.toString();
         }
 
