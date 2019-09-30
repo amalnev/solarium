@@ -15,11 +15,12 @@ public abstract class BinaryOperatorImpl<T, R> extends BasicOperatorImpl<T, R> i
     @Override
     public IValue operate(IValue leftOperand, IValue rightOperand) throws InterpreterException
     {
+        /*if(rightOperand.getScalarValue() != null && leftOperand)
         if (!operandClass.isAssignableFrom(leftOperand.getScalarValue().getClass()) ||
             !operandClass.isAssignableFrom(rightOperand.getScalarValue().getClass()))
         {
             throw new TypeMismatchException();
-        }
+        }*/
 
         final T leftOperandValue = (T) leftOperand.getScalarValue();
         final T rightOperandValue = (T) rightOperand.getScalarValue();

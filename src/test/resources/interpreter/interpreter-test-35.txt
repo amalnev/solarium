@@ -1,0 +1,12 @@
+function createComplexValue()
+{
+    result = 10;
+    result.someField = "123";
+
+    return result;
+}
+
+complexValue = createComplexValue();
+a = complexValue.someField + "," + complexValue.otherField;
+println(a);
+return a;
