@@ -6,7 +6,7 @@ import ru.amalnev.solarium.language.ParserException;
 
 import java.io.IOException;
 
-//TODO: Json integration
+//TODO: FromJson integration
 //TODO: Parser & interpreter error reporting
 //TODO: Lambda expressions and closures
 //TODO: preprocessor conditional directives (#ifdef, #ifndef)

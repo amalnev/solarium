@@ -1,0 +1,19 @@
+function createComplexValue()
+{
+    result = 10;
+    result.someField =  [20, 30, 40];
+    result.someField[1].anotherField = "Another field value";
+
+    return result;
+}
+
+initialValue = createComplexValue();
+jsonString = initialValue.toJSON();
+
+println(jsonString);
+println("=================================");
+
+restoredValue = fromJSON(jsonString);
+println(restoredValue.toJSON());
+
+return initialValue == restoredValue;
