@@ -64,6 +64,10 @@ public class SimpleSnmpClient
     public String getAsString(OID oid) throws IOException
     {
         ResponseEvent event = get(new OID[]{oid});
+        if (event.getResponse() == null)
+        {
+            throw new RuntimeException("No response via SNMP");
+        }
         return event.getResponse().get(0).getVariable().toString();
     }
 

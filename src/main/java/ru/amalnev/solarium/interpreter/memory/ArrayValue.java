@@ -1,6 +1,5 @@
 package ru.amalnev.solarium.interpreter.memory;
 
-import ru.amalnev.solarium.interpreter.errors.IndexOutOfBoundsException;
 import ru.amalnev.solarium.interpreter.errors.InterpreterException;
 import ru.amalnev.solarium.language.utils.CommaSeparatedList;
 import ru.amalnev.solarium.language.utils.HashCodeBuilder;
@@ -11,17 +10,39 @@ public class ArrayValue implements IArrayValue
 {
     private List<IValue> arrayValue = new CommaSeparatedList<>();
 
+    private void resize(int newSize)
+    {
+        final List<IValue> newArrayValue = new CommaSeparatedList<>();
+        for (int i = 0; i < newSize; i++)
+        {
+            if (i < arrayValue.size())
+            {
+                newArrayValue.add(arrayValue.get(i));
+            }
+            else
+            {
+                newArrayValue.add(null);
+            }
+        }
+
+        arrayValue = newArrayValue;
+    }
+
     @Override
     public IValue getArrayElement(int elementIndex) throws InterpreterException
     {
-        if (arrayValue.size() <= elementIndex) throw new IndexOutOfBoundsException();
+        if (arrayValue.size() <= elementIndex)
+            resize(elementIndex + 1);
+
         return arrayValue.get(elementIndex);
     }
 
     @Override
     public void setArrayElement(int elementIndex, IValue elementValue) throws InterpreterException
     {
-        if (arrayValue.size() <= elementIndex) throw new IndexOutOfBoundsException();
+        if (arrayValue.size() <= elementIndex)
+            resize(elementIndex + 1);
+
         arrayValue.set(elementIndex, elementValue);
     }
 

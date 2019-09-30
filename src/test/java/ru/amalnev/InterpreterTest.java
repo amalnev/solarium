@@ -60,8 +60,9 @@ public class InterpreterTest
                 {"/interpreter/interpreter-test-30.txt", "abc10"},
                 {"/interpreter/interpreter-test-31.txt", "abc1020"},
                 {"/interpreter/interpreter-test-32.txt", 50},
-                {"/interpreter/interpreter-test-33.txt", 30},
-                {"/library/library-test-1.txt", 11},
+                {"/interpreter/interpreter-test-33.txt", 30},*/
+                {"/interpreter/interpreter-test-34.txt", 10}
+                /*{"/library/library-test-1.txt", 11},
                 {"/library/library-test-2.txt", true},
                 {"/library/library-test-3.txt", "11"},
                 {"/library/library-test-5.txt", true},

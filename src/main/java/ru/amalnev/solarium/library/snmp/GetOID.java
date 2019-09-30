@@ -6,8 +6,6 @@ import ru.amalnev.solarium.library.AbstractNativeFunction;
 import ru.amalnev.solarium.library.FunctionArguments;
 import ru.amalnev.solarium.library.FunctionName;
 
-import java.io.IOException;
-
 @FunctionName("getOID")
 @FunctionArguments({"oid", "hostIp", "community", "protocolVersion"})
 public class GetOID extends AbstractNativeFunction
@@ -27,9 +25,9 @@ public class GetOID extends AbstractNativeFunction
             snmpClient.stop();
             setReturnValue(context, result);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
-            throw new InterpreterException(e);
+            setReturnValue(context, null);
         }
     }
 }
