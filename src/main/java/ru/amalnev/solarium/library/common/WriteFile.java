@@ -27,8 +27,14 @@ public class WriteFile extends AbstractNativeFunction
         final Path filePath = Paths.get(file);
         try
         {
-            Files.write(filePath, new ArrayList<String>()
-            {{ add(contents); }}, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
+            Files.write(
+                    filePath,
+                    new ArrayList<String>()
+                    {{ add(contents); }},
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.CREATE_NEW,
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
         }
         catch (IOException e)
         {
