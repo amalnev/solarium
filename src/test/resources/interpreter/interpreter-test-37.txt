@@ -1,0 +1,2 @@
+element.name = "112";
+println(element == null);

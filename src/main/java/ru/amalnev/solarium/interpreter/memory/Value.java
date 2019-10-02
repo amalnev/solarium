@@ -123,7 +123,7 @@ public class Value implements IValue
         if (!(isScalar() == otherValue.isScalar())) return false;
         if (isScalar() && !scalarValue.equals(otherValue)) return false;
         if (isArray() && !arrayValue.equals(otherValue)) return false;
-        if (!associativeValue.equals(associativeValue)) return false;
+        if (!associativeValue.equals(otherValue)) return false;
 
         return true;
     }

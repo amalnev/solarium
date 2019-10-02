@@ -19,7 +19,7 @@ public class VariableScope implements IVariableScope
     @Override
     public IValue defineVariable(String name)
     {
-        final Value value = new Value(name);
+        final Value value = new Value();
         variables.put(name, value);
         return value;
     }
