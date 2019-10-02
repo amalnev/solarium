@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 @FunctionName("writeFile")
@@ -31,10 +30,8 @@ public class WriteFile extends AbstractNativeFunction
                     filePath,
                     new ArrayList<String>()
                     {{ add(contents); }},
-                    StandardCharsets.UTF_8,
-                    StandardOpenOption.CREATE_NEW,
-                    StandardOpenOption.WRITE,
-                    StandardOpenOption.TRUNCATE_EXISTING);
+                    StandardCharsets.UTF_8);
+
         }
         catch (IOException e)
         {
