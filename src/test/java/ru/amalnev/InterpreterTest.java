@@ -70,7 +70,7 @@ public class InterpreterTest
                 {"/library/library-test-7.txt", true},
                 {"/interpreter/interpreter-test-35.txt", "123,null"},
                 {"/interpreter/interpreter-test-36.txt", "123456"},
-                {"/interpreter/interpreter-test-37.txt", null}
+                {"/interpreter/interpreter-test-37.txt", false}
         });
     }
 

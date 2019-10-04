@@ -1,4 +1,4 @@
-package ru.amalnev.solarium.library.common;
+package ru.amalnev.solarium.library.io;
 
 import ru.amalnev.solarium.interpreter.ExecutionContext;
 import ru.amalnev.solarium.interpreter.errors.InterpreterException;

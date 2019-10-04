@@ -1,2 +1,2 @@
 element.name = "112";
-println(element == null);
+return element == null;
