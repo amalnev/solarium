@@ -16,6 +16,14 @@ public class OpenPage extends AbstractNativeFunction
     {
         final WebDriver webDriver = getScalarArgument(context, "browser");
         final String url = getScalarArgument(context, "url");
-        webDriver.get(url);
+        try
+        {
+            webDriver.get(url);
+            setReturnValue(context, true);
+        }
+        catch (Exception e)
+        {
+            setReturnValue(context, false);
+        }
     }
 }
