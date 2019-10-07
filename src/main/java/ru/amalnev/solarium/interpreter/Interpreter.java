@@ -6,13 +6,13 @@ import ru.amalnev.solarium.language.Parser;
 import ru.amalnev.solarium.language.ParserException;
 import ru.amalnev.solarium.language.expressions.FunctionCallExpression;
 import ru.amalnev.solarium.language.statements.FunctionDefinition;
+import ru.amalnev.solarium.language.utils.RandomIdentifier;
 import ru.amalnev.solarium.library.Library;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Random;
 
 public class Interpreter
 {
@@ -34,25 +34,10 @@ public class Interpreter
         }
     }
 
-    private static String makeRandomIdentifier()
-    {
-        int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++)
-        {
-            int randomLimitedInt = leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
-        return buffer.toString();
-    }
-
     public Object runFromString(String sourceCode) throws IOException, ParserException, InterpreterException
     {
         final FunctionDefinition entryPoint = parser.parse(new StringReader(sourceCode));
-        entryPoint.setFunctionName(makeRandomIdentifier());
+        entryPoint.setFunctionName(new RandomIdentifier().toString());
         executionContext.defineFunction(entryPoint);
 
         final FunctionCallExpression entryPointCall = new FunctionCallExpression();
