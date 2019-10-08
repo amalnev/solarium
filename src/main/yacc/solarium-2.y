@@ -16,7 +16,7 @@ import ru.amalnev.solarium.language.utils.*;
 %token LT GT EQ DOT NULL IF ELSE WHILE DO FOR
 %token NUMERIC_LITERAL STRING_LITERAL TRUE FALSE
 %token OPEN_CURLY_BRACKET CLOSE_CURLY_BRACKET
-%token COLON CONTINUE BREAK RETURN FUNCTION GLOBAL
+%token COLON CONTINUE BREAK RETURN FUNCTION GLOBAL ARROW
 
 %start program
 
@@ -249,6 +249,9 @@ postfix_expression
 	expr.setFunctionName($3.sval);
 	expr.setFunctionCallArguments(arguments);
 	$$ = new ParserVal(expr);
+ }
+ | OPEN_BRACKET identifier_list CLOSE_BRACKET ARROW compound_statement {
+
  }
  ;
 

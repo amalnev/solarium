@@ -1,0 +1,6 @@
+123
+456
+sysname> show conf
+78910
+abcd
+sysname>

@@ -28,7 +28,7 @@ public class IpRange extends AbstractNativeFunction
             final IValue result = new Value().convertToArray();
             while (rangeIterator.hasNext())
             {
-                final IPAddress ipAddress = rangeIterator.next();
+                final IPAddress ipAddress = rangeIterator.next().withoutPrefixLength();
                 result.addArrayElement(new Value(ipAddress.toCanonicalString()));
             }
 

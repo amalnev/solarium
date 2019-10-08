@@ -1,1 +1,12 @@
+sshConnection = ssh("10.123.16.91", "ubnt", "ubnt");
+if(sshConnection == null){
+    println("ssh connection failed");
+    return;
+}
 
+sshConsole = sshConnection.getConsole();
+sshConsole.writeLine("uname -s");
+println(sshConsole.expect("XM.v5.5#"));
+sshConsole.writeLine("exit");
+sshConsole.close();
+sshConnection.close();
