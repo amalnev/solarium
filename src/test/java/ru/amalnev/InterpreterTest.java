@@ -28,7 +28,7 @@ public class InterpreterTest
     public static List<Object[]> parameters()
     {
         return Arrays.asList(new Object[][] {
-                /*{"/interpreter/interpreter-test-1.txt", 10},
+                {"/interpreter/interpreter-test-1.txt", 10},
                 {"/interpreter/interpreter-test-2.txt", "test string"},
                 {"/interpreter/interpreter-test-3.txt", 5},
                 {"/interpreter/interpreter-test-4.txt", 1},
@@ -70,8 +70,8 @@ public class InterpreterTest
                 {"/library/library-test-7.txt", true},
                 {"/interpreter/interpreter-test-35.txt", "123,null"},
                 {"/interpreter/interpreter-test-36.txt", "123456"},
-                {"/interpreter/interpreter-test-37.txt", false},*/
-                {"/library/library-test-8.txt", null}
+                {"/interpreter/interpreter-test-37.txt", false},
+                //{"/library/library-test-8.txt", null}
         });
     }
 

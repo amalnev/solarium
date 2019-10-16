@@ -11,7 +11,7 @@ public class TelnetConnection implements Closeable, ISerialInterface
     public TelnetConnection(String host) throws IOException
     {
         socket = new Socket(host, 23);
-        socket.setSoTimeout(5000);
+        socket.setSoTimeout(20000);
     }
 
     public IConsole getConsole() throws IOException
