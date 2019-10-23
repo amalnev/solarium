@@ -1,14 +1,11 @@
 package ru.amalnev.solarium.library.console;
 
-import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class SshConnection implements Closeable, ISerialInterface
 {
@@ -20,34 +17,32 @@ public class SshConnection implements Closeable, ISerialInterface
     {
         private final Session session;
 
-        private ChannelExec channel = null;
+        private Channel channel = null;
 
         private InputStream inputStream = null;
 
-        public JSchConsole(Session session)
-        {
-            this.session = session;
-        }
+        private PrintStream outputStream = null;
 
-        @Override
-        public void writeLine(String line) throws IOException
+        public JSchConsole(Session session) throws IOException
         {
             try
             {
-                if (channel != null)
-                    channel.disconnect();
-
-                channel = (ChannelExec) session.openChannel("exec");
-                channel.setCommand(line);
-                channel.setInputStream(null);
+                this.session = session;
+                channel = session.openChannel("shell");
+                outputStream = new PrintStream(channel.getOutputStream(), true);
                 inputStream = channel.getInputStream();
                 channel.connect();
-
             }
             catch (JSchException e)
             {
                 throw new IOException(e);
             }
+        }
+
+        @Override
+        public void writeLine(String line)
+        {
+            outputStream.println(line);
         }
 
         @Override

@@ -1,12 +1,16 @@
-sshConnection = ssh("10.123.16.91", "ubnt", "ubnt");
+sshConnection = ssh("10.123.23.85", "alexey.malnev", "_Ktybybpv12");
 if(sshConnection == null){
     println("ssh connection failed");
     return;
 }
 
 sshConsole = sshConnection.getConsole();
-sshConsole.writeLine("uname -s");
-println(sshConsole.expect("XM.v5.5#"));
-sshConsole.writeLine("exit");
+println(sshConsole.expect(">"));
+sshConsole.writeLine("dis ver");
+println(sshConsole.expect(">"));
+sleep(10000);
+sshConsole.writeLine("dis ver");
+println(sshConsole.expect(">"));
+sshConsole.writeLine("q");
 sshConsole.close();
 sshConnection.close();
