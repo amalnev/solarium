@@ -19,8 +19,8 @@ public class IsReachable extends AbstractNativeFunction
         {
             final String ipAddress = getScalarArgument(context, "ipAddress");
             final String pingCommand = System.getProperty("os.name").contains("Windows") ?
-                    "ping -n 1 " + ipAddress :
-                    "ping -c 1 " + ipAddress;
+                    "ping -n 2 " + ipAddress :
+                    "ping -c 2 " + ipAddress;
             final Process p1 = java.lang.Runtime.getRuntime().exec(pingCommand);
             final int returnVal = p1.waitFor();
             boolean reachable = (returnVal == 0);
