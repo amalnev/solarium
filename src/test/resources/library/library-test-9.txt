@@ -1,0 +1,2 @@
+ipAddress = "10.109.8.68";
+return ipAddress.contains("10.109");

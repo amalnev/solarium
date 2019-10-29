@@ -1,0 +1,2 @@
+a = "102030";
+return a.startsWith("10");

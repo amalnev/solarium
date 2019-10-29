@@ -71,7 +71,9 @@ public class InterpreterTest
                 {"/interpreter/interpreter-test-35.txt", "123,null"},
                 {"/interpreter/interpreter-test-36.txt", "123456"},
                 {"/interpreter/interpreter-test-37.txt", false},
-                //{"/library/library-test-8.txt", null}
+                {"/library/library-test-9.txt", true},
+                {"/library/library-test-10.txt", true},
+                {"/library/library-test-11.txt", "ASDFRG"}
         });
     }
 
