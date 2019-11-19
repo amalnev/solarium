@@ -16,8 +16,7 @@
 package ru.amalnev.solarium.language;
 
 
-
-//#line 2 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 2 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 
 import lombok.Getter;
 import ru.amalnev.solarium.language.expressions.*;
@@ -570,7 +569,7 @@ final static String yyrule[] = {
 "expression : assignment_expression",
 };
 
-//#line 439 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 439 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 
 private FunctionDefinition entryPointFunction;
 
@@ -760,7 +759,7 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 25 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 25 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 { /*An empty program*/
 	FunctionDefinition entryPoint = new FunctionDefinition();
 	entryPoint.setBody(null);
@@ -768,7 +767,7 @@ case 1:
  }
 break;
 case 2:
-//#line 30 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 30 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	FunctionDefinition entryPoint = new FunctionDefinition();
 	entryPoint.setBody((CompoundStatement)val_peek(0).obj);
@@ -776,7 +775,7 @@ case 2:
  }
 break;
 case 3:
-//#line 38 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 38 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	CompoundStatement stmt = new CompoundStatement();
 	stmt.getStatements().add((IStatement)val_peek(0).obj);
@@ -784,7 +783,7 @@ case 3:
  }
 break;
 case 4:
-//#line 43 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 43 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	CompoundStatement stmt = (CompoundStatement)val_peek(1).obj;
 	stmt.getStatements().add((IStatement)val_peek(0).obj);
@@ -792,43 +791,43 @@ case 4:
  }
 break;
 case 5:
-//#line 51 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 51 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 6:
-//#line 54 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 54 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 7:
-//#line 57 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 57 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 8:
-//#line 60 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 60 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 9:
-//#line 63 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 63 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 10:
-//#line 66 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 66 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 11:
-//#line 72 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 72 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	String functionName = val_peek(4).sval;
 	List<String> argumentNames = (List<String>) val_peek(2).obj;
@@ -841,7 +840,7 @@ case 11:
  }
 break;
 case 12:
-//#line 82 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 82 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	String functionName = val_peek(3).sval;
 	CompoundStatement body = (CompoundStatement) val_peek(0).obj;
@@ -852,7 +851,7 @@ case 12:
  }
 break;
 case 13:
-//#line 93 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 93 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	List<String> identifierList = new CommaSeparatedList<>();
  	identifierList.add(val_peek(0).sval);
@@ -860,7 +859,7 @@ case 13:
  }
 break;
 case 14:
-//#line 98 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 98 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	List<String> identifierList = (List<String>) val_peek(2).obj;
  	identifierList.add(val_peek(0).sval);
@@ -868,31 +867,31 @@ case 14:
  }
 break;
 case 15:
-//#line 106 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 106 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = new ParserVal(new ContinueStatement());
  }
 break;
 case 16:
-//#line 109 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 109 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = new ParserVal(new BreakStatement());
  }
 break;
 case 17:
-//#line 112 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 112 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = new ParserVal(new ReturnStatement());
  }
 break;
 case 18:
-//#line 115 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 115 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = new ParserVal(new ReturnStatement((IExpression) val_peek(1).obj));
  }
 break;
 case 19:
-//#line 121 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 121 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	IExpression condition = (IExpression) val_peek(2).obj;
 	IStatement body = (IStatement) val_peek(0).obj;
@@ -903,7 +902,7 @@ case 19:
  }
 break;
 case 20:
-//#line 129 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 129 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IExpression condition = (IExpression) val_peek(2).obj;
         IStatement body = (IStatement) val_peek(5).obj;
@@ -914,7 +913,7 @@ case 20:
  }
 break;
 case 21:
-//#line 137 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 137 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IStatement initializer = (IStatement) val_peek(3).obj;
  	ExpressionStatement conditionStatement = (ExpressionStatement) val_peek(2).obj;
@@ -927,7 +926,7 @@ case 21:
  }
 break;
 case 22:
-//#line 147 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 147 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IStatement initializer = (IStatement) val_peek(4).obj;
 	ExpressionStatement conditionStatement = (ExpressionStatement) val_peek(3).obj;
@@ -942,7 +941,7 @@ case 22:
  }
 break;
 case 23:
-//#line 159 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 159 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	String elementName = val_peek(4).sval;
 	IExpression collectionExpression = (IExpression) val_peek(2).obj;
@@ -955,7 +954,7 @@ case 23:
  }
 break;
 case 24:
-//#line 172 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 172 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IExpression condition = (IExpression) val_peek(2).obj;
  	IStatement positiveStatement = (IStatement) val_peek(0).obj;
@@ -964,7 +963,7 @@ case 24:
  }
 break;
 case 25:
-//#line 178 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 178 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IExpression condition = (IExpression) val_peek(4).obj;
         IStatement positiveStatement = (IStatement) val_peek(2).obj;
@@ -974,20 +973,20 @@ case 25:
  }
 break;
 case 26:
-//#line 188 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 188 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	CompoundStatement stmt = new CompoundStatement();
  	yyval = new ParserVal(stmt);
  }
 break;
 case 27:
-//#line 192 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 192 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(1);
  }
 break;
 case 28:
-//#line 198 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 198 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IExpression expr = (IExpression) val_peek(1).obj;
  	ExpressionStatement stmt = new ExpressionStatement(expr);
@@ -995,13 +994,13 @@ case 28:
  }
 break;
 case 29:
-//#line 206 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 206 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }
 break;
 case 30:
-//#line 209 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 209 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	IExpression arrayExpression = (IExpression) val_peek(3).obj;
 	IExpression indexExpression = (IExpression) val_peek(1).obj;
@@ -1012,7 +1011,7 @@ case 30:
  }
 break;
 case 31:
-//#line 217 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 217 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	FunctionCallExpression expr = new FunctionCallExpression();
 	expr.setFunctionName(val_peek(2).sval);
@@ -1020,7 +1019,7 @@ case 31:
  }
 break;
 case 32:
-//#line 222 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 222 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	List<IExpression> arguments = (List<IExpression>) val_peek(1).obj;
  	FunctionCallExpression expr = new FunctionCallExpression();
@@ -1030,7 +1029,7 @@ case 32:
  }
 break;
 case 33:
-//#line 229 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 229 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	IExpression sourceExpression = (IExpression) val_peek(2).obj;
 	String fieldName = val_peek(0).sval;
@@ -1039,7 +1038,7 @@ case 33:
  }
 break;
 case 34:
-//#line 235 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 235 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	List<IExpression> arguments = (List<IExpression>) val_peek(1).obj;
 	IExpression implicitArgument = (IExpression) val_peek(5).obj;
@@ -1051,7 +1050,7 @@ case 34:
  }
 break;
 case 35:
-//#line 244 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 244 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	List<IExpression> arguments = new CommaSeparatedList<>();
 	IExpression implicitArgument = (IExpression) val_peek(4).obj;
@@ -1063,67 +1062,67 @@ case 35:
  }
 break;
 case 36:
-//#line 253 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 253 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 
  }
 break;
 case 37:
-//#line 259 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 259 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     VariableExpression expr = new VariableExpression(val_peek(0).sval);
 	yyval = new ParserVal(expr);
  }
 break;
 case 38:
-//#line 263 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 263 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     IntegerLiteralExpression expr = new IntegerLiteralExpression((Integer) val_peek(0).obj);
 	yyval = new ParserVal(expr);
  }
 break;
 case 39:
-//#line 267 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 267 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     StringLiteralExpression expr = new StringLiteralExpression(val_peek(0).sval);
 	yyval = new ParserVal(expr);
  }
 break;
 case 40:
-//#line 271 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 271 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     BooleanLiteralExpression expr = new BooleanLiteralExpression(true);
     yyval = new ParserVal(expr);
  }
 break;
 case 41:
-//#line 275 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 275 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     BooleanLiteralExpression expr = new BooleanLiteralExpression(false);
     yyval = new ParserVal(expr);
  }
 break;
 case 42:
-//#line 279 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 279 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     NullLiteralExpression expr = new NullLiteralExpression();
     yyval = new ParserVal(expr);
  }
 break;
 case 43:
-//#line 283 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 283 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(1);
  }
 break;
 case 44:
-//#line 286 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 286 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
 }
 break;
           case 45:
-//#line 292 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 292 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	List<IExpression> elements = (List<IExpression>) val_peek(1).obj;
 	ArrayLiteralExpression expr = new ArrayLiteralExpression();
@@ -1132,14 +1131,14 @@ break;
  }
 break;
           case 46:
-//#line 298 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 298 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	ArrayLiteralExpression expr = new ArrayLiteralExpression();
 	yyval = new ParserVal(expr);
  }
 break;
           case 47:
-//#line 305 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 305 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	List<IExpression> arguments = new CommaSeparatedList<>();
  	arguments.add((IExpression)val_peek(0).obj);
@@ -1147,7 +1146,7 @@ break;
  }
 break;
           case 48:
-//#line 310 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 310 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	List<IExpression> arguments = (List<IExpression>) val_peek(2).obj;
 	arguments.add((IExpression) val_peek(0).obj);
@@ -1155,27 +1154,27 @@ break;
  }
 break;
           case 49:
-//#line 318 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 318 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IUnaryOperator op = new UnaryMinus();
  	yyval = new ParserVal(op);
  }
 break;
           case 50:
-//#line 322 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 322 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IUnaryOperator op = new Not();
  	yyval = new ParserVal(op);
  }
 break;
           case 51:
-//#line 329 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 329 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	yyval = val_peek(0);
  }
 break;
           case 52:
-//#line 332 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 332 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	IUnaryOperator op = (IUnaryOperator) val_peek(1).obj;
  	UnaryOperationExpression expr = new UnaryOperationExpression(op, (IExpression)val_peek(0).obj);
@@ -1183,127 +1182,127 @@ break;
  }
 break;
 case 53:
-//#line 340 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 340 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
  }
 break;
 case 54:
-//#line 343 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 343 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Mul(), val_peek(0));
  }
 break;
 case 55:
-//#line 346 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 346 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Div(), val_peek(0));
  }
 break;
 case 56:
-//#line 349 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 349 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Modulo(), val_peek(0));
  }
 break;
 case 57:
-//#line 355 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 355 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
  }
 break;
 case 58:
-//#line 358 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 358 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Plus(), val_peek(0));
  }
 break;
 case 59:
-//#line 361 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 361 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Minus(), val_peek(0));
  }
 break;
 case 60:
-//#line 367 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 367 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
  }
 break;
 case 61:
-//#line 370 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 370 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Lt(), val_peek(0));
  }
 break;
 case 62:
-//#line 373 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 373 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Gt(), val_peek(0));
  }
 break;
 case 63:
-//#line 376 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 376 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Le(), val_peek(0));
  }
 break;
 case 64:
-//#line 379 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 379 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Ge(), val_peek(0));
  }
 break;
 case 65:
-//#line 385 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 385 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
  }
 break;
 case 66:
-//#line 388 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 388 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Eq(), val_peek(0));
  }
 break;
 case 67:
-//#line 391 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 391 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Neq(), val_peek(0));
  }
 break;
 case 68:
-//#line 397 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 397 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
  }
 break;
 case 69:
-//#line 400 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 400 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new And(), val_peek(0));
  }
 break;
 case 70:
-//#line 406 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 406 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
  }
 break;
 case 71:
-//#line 409 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 409 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = constructBinaryOperation(val_peek(2), new Or(), val_peek(0));
  }
 break;
 case 72:
-//#line 415 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 415 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
     yyval = val_peek(0);
 }
 break;
           case 73:
-//#line 418 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 418 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
           {
               IExpression leftOperand = (IExpression) val_peek(2).obj;
               IExpression rightOperand = (IExpression) val_peek(0).obj;
@@ -1312,7 +1311,7 @@ break;
           }
 break;
           case 74:
-//#line 424 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 424 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
 	IExpression leftOperand = new GlobalVariableExpression(val_peek(2).sval);
 	IExpression rightOperand = (IExpression) val_peek(0).obj;
@@ -1321,7 +1320,7 @@ break;
  }
 break;
           case 75:
-//#line 433 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
+//#line 433 "C:\Users\Alexey.Malnev\dev\solarium\solarium/src/main/yacc/solarium-2.y"
 {
  	yyval = val_peek(0);
  }

@@ -1,18 +1,6 @@
-a = 10;
-b = "Some string";
-
-/*b теперь становится массивом, строковое значение "Some string"
-* забывается.*/
-b = b.append(10);
-b = b.append(20);
-
-/*Напечатается: [10, 20]*/
-println(b);
-
-/*Добавляем в переменную a несколько полей. Теперь а является
-* аналогом объекта в ООП-языках. При этом скалярное значение 10,
-* хранившееся в переменной a не забывается*/
-a.stringField = "Some string";
-a.integerField = 100;
-
-println(a);
+arr = [10, 20, 30, 40, 50, 60];
+for(element: arr) {
+    if(element < 30) continue;
+    if(element > 40) break;
+    println(element);
+}
