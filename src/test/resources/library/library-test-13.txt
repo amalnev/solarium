@@ -1,0 +1,4 @@
+s = "aaa 111 !!222'bbb";
+r = s.replace("[^a-zA-Z0-9]", "_");
+println(r);
+return r;

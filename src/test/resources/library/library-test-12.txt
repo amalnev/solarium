@@ -1,0 +1,3 @@
+s = unicodeToAscii("Москва");
+println(s);
+return s;

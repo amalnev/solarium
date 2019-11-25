@@ -1,6 +1,6 @@
-arr = [10, 20, 30, 40, 50, 60];
-for(element: arr) {
-    if(element < 30) continue;
-    if(element > 40) break;
-    println(element);
-}
+browser = firefox();
+browser.openPage("https://macvendors.com");
+browser.findElementById("macaddress").sendKeys("b4:b5:2f:32:9e:d2");
+sleep(3000);
+println(browser.findElementById("vendor").getAttribute("innerHTML"));
+browser.closeBrowser();
