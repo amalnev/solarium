@@ -22,7 +22,7 @@ public class ToJson extends AbstractNativeFunction
             {
                 builder.append("null");
             }
-            else if (scalarValue instanceof Integer)
+            else if (scalarValue instanceof Integer || scalarValue instanceof Boolean)
             {
                 builder.append(scalarValue.toString());
             }
