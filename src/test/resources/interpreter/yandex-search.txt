@@ -1,15 +1,15 @@
 function search_with_yandex(browser, what)
 {
-    open_page(browser, "https://yandex.ru");
+    openPage(browser, "https://yandex.ru");
 
-    search_field = find_element_by_id(browser, "text");
-    search_button = find_element_by_css_selector(browser, ".suggest2-form__button");
+    search_field = findElementById(browser, "text");
+    search_button = findElementByCssSelector(browser, ".suggest2-form__button");
 
-    send_keys(search_field, what);
+    sendKeys(search_field, what);
     click(search_button);
 };
 
 browser = firefox();
 search_with_yandex(browser, "selenium");
 sleep(2000);
-close_browser(browser);
+closeBrowser(browser);
