@@ -16,6 +16,7 @@
 package ru.amalnev.solarium.language;
 
 
+
 //#line 2 "/home/amalnev/dev/solarium/src/main/yacc/solarium-2.y"
 
 import lombok.Getter;
